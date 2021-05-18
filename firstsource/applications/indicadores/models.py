@@ -1,6 +1,6 @@
 from django.db import models
 
-from applications.users.models import User, dependencia
+from applications.users.models import User
 # Create your models here.
 #from users.models import User
 
@@ -37,11 +37,6 @@ class indicador(models.Model):
      
       ]     
 
-    Dependencia = models.OneToOneField(
-        dependencia,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
     Tipo = models.ForeignKey(tipo_indicador, on_delete=models.CASCADE)
     Periodo = models.CharField(max_length=6, choices=PE_CHOICES)
     Año = models.CharField(max_length=4, choices=AÑO_CHOICES)

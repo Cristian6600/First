@@ -5,25 +5,21 @@ from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin
 from .managers import UserManager
 
 class dependencia(models.Model):
-    dependencia = models.CharField(max_length=30)
+    Dependencia = models.CharField(max_length=25)
 
     def __str__(self):
-        return self.dependencia
+        return self.Dependencia
+
+class Areas(models.Model):
+    Areas = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.Areas
 
 class User(AbstractBaseUser, PermissionsMixin):
 
 
-    AR_CHOICES = (
-        ('ADMIN', 'Administracion'),
-        ('COMER', 'Comercial'),
-        ('GH', 'Gestion_humana'),
-        ('OPER', 'Operaciones'),
-        ('ORG_M', 'Organización y metodos'),
-        ('SE_NA', 'Seguridad_nacional'),
-        ('SER_CL', 'servicio_al_cliente'),
-        ('SIG', 'Sig'),
-        ('TECNO', 'Tecnologia'),
-    )
+
     GENDER_CHOICES = (
         ('M', 'Masculino'),
         ('F', 'Femenino'),
@@ -36,8 +32,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     nombres = models.CharField(max_length=30, blank=True)
     apellidos = models.CharField(max_length=30, blank=True)
     genero = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
-    Area = models.CharField(max_length=6, choices=AR_CHOICES, blank=True)
-    dependencia = models.ManyToManyField(dependencia)
+    Departamento = models.ForeignKey ('Areas', on_delete=models.SET_NULL, null=True)
+    Dependencia  = models.ManyToManyField(dependencia)
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=False)
 
@@ -51,6 +47,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
     
     def get_full_name (self):
-        return self.nombres + ' ' + self.Area
+        return self.nombres + ' ' + self.apellidos
 
 

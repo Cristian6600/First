@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from . models import Inventario, Marcas
+from . models import Inventario, Marcas, Licencia
 
 class InventarioAdmin(admin.ModelAdmin):
     list_display = (
@@ -21,3 +21,4 @@ class InventarioAdmin(admin.ModelAdmin):
 
 admin.site.register(Inventario, InventarioAdmin)
 admin.site.register(Marcas)
+admin.site.register(Licencia)
