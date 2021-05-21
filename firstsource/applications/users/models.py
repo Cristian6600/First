@@ -4,11 +4,11 @@ from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin
 #
 from .managers import UserManager
 
-class dependencia(models.Model):
-    Dependencia = models.CharField(max_length=25)
+#class dependencia(models.Model):
+ #   Dependencia = models.CharField(max_length=25)
 
-    def __str__(self):
-        return self.Dependencia
+  #  def __str__(self):
+   #     return self.Dependencia
 
 class Areas(models.Model):
     Areas = models.CharField(max_length=30)
@@ -33,7 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     apellidos = models.CharField(max_length=30, blank=True)
     genero = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     Departamento = models.ForeignKey ('Areas', on_delete=models.SET_NULL, null=True)
-    Dependencia  = models.ManyToManyField(dependencia)
+    #Dependencia  = models.ManyToManyField(dependencia)
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=False)
 

@@ -2,7 +2,6 @@
 """
 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from unipath import Path
 BASE_DIR = Path(__file__).ancestor(3)
@@ -18,18 +17,22 @@ SECRET_KEY = 'u5h4i@k8zl$24!dhx)=22c)ue@5y%$pg)hpr&@#*wt6rcjx0)f'
 # Application definition
 
 INSTALLED_APPS = [
+    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     #local apps
     'applications.users',
     'applications.indicadores',
     'applications.inventario',
     'applications.M_solicitud',
+    
+    
+    
+    
 ]
 
 #LOCAL_APPS = ()
@@ -53,7 +56,7 @@ ROOT_URLCONF = 'firstsource.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR.child('templates')],
+        'DIRS': [BASE_DIR.child('templates')], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,6 +91,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'users.User'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

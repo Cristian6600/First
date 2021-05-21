@@ -1,6 +1,7 @@
 from django.db import models
+from django.db.models.fields import IntegerField
 
-from applications.users.models import User
+from applications.users.models import  User
 # Create your models here.
 #from users.models import User
 
@@ -15,18 +16,18 @@ class tipo_indicador(models.Model):
 
 class indicador(models.Model):
     PE_CHOICES = [
-        ('EN',  'Enero'),
-        ('FE',  'Febrero'),
-        ('MAR',  'Marzo'),
-        ('ABR',  'Abril'),
-        ('MAY',  'Mayo'),
-        ('JUN',  'Junio'),
-        ('JUL',  'Julio'),
-        ('AGO',  'Agosto'),
-        ('SEP',  'Septiembre'),
-        ('OCT',  'Octubre'),
-        ('NOV',  'Nomviembre'),
-        ('DIC',  'Diciembre'),
+        ('Enero',  'Enero'),
+        ('Febrero',  'Febrero'),
+        ('Marzo',  'Marzo'),
+        ('Abril',  'Abril'),
+        ('Mayo',  'Mayo'),
+        ('Junio',  'Junio'),
+        ('Julio',  'Julio'),
+        ('Agosto',  'Agosto'),
+        ('Septiembre',  'Septiembre'),
+        ('Octubre',  'Octubre'),
+        ('Nomviembre',  'Nomviembre'),
+        ('Diciembre',  'Diciembre'),
       ]
     AÑO_CHOICES = [
         ('2021',  '2021'),
@@ -37,31 +38,31 @@ class indicador(models.Model):
      
       ]     
 
-    Tipo = models.ForeignKey(tipo_indicador, on_delete=models.CASCADE)
-    Periodo = models.CharField(max_length=6, choices=PE_CHOICES)
+    Tipo = models.ForeignKey(tipo_indicador, on_delete=models.CASCADE, verbose_name='indicador')
+    Periodo = models.CharField(max_length=10, choices=PE_CHOICES)
     Año = models.CharField(max_length=4, choices=AÑO_CHOICES)
-    meta = models.IntegerField()
-    limite = models.IntegerField(verbose_name= 'limite superior')
-    aspectos = models.TextField(max_length=100,
-    verbose_name = 'Aspectos a destacar del mes')
-    solicitud = models.TextField(max_length=100,
-    verbose_name = 'Solicitudes de recursos')
+    meta = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='Gestionad@s')
+    limite = models.DecimalField(max_digits=6, decimal_places=2, verbose_name= 'Totales')
+    aspectos = models.TextField(max_length=100,verbose_name = 'Aspectos a destacar del mes')
+    solicitud = models.TextField(max_length=100,verbose_name = 'Solicitudes de recursos')  
+    Porcentaje = models.DecimalField(max_digits=6, decimal_places=2, blank=True)
+
+
+    @property
+    def Porcentajes(self):
+      return (self.meta / self.limite *100)
+
+    def save(self):
+        self.Porcentaje = self.Porcentajes
+        super (indicador, self).save()
     
+    def __str__(self):
+        return self.solicitud
+        
     #dependencia = models.OneToOneField(
      #   dependencia,
      #   on_delete=models.CASCADE,
-      #  
-    def __str__(self):
-        return self.solicitud
-
-
-
-
-
-      
-      
-
-
+      #  total = property(_get_total)
       
     #def __unicode__(self):
      #   return self.solicitud + '' + self.dependencia
