@@ -8,7 +8,7 @@ class Marcas(models.Model):
     
 
     def __str__(self):
-        return self.marca
+        return self.marca 
 
 class Licencia(models.Model):
     serial = models.CharField(max_length=45)
@@ -37,6 +37,9 @@ class Inventario(models.Model):
     
     def __str__(self):
         return self.Serial
+
+    def __str__(self):
+        return self.Marca
 
 class Articulo(models.Model):
     Articulo = models.CharField(max_length=30)
