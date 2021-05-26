@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'applications.indicadores',
     'applications.inventario',
     'applications.M_solicitud',
-    'applications.nomina',
     
     
     

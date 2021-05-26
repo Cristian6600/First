@@ -18,7 +18,6 @@ class InventarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'usuario',
     )
     list_filter = (
-        'Serial',
         'Producto',
         'Marca',
         'Estado',
@@ -27,6 +26,9 @@ class InventarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     search_fields = ['Serial']
 
     resources_class = InventarioResource
+
+class MarcasAdmin(admin.ModelAdmin):
+    list_filter = ('marca',)
 
 class inmobiliarioAdmin(admin.ModelAdmin):
     list_display = (
@@ -37,11 +39,9 @@ class inmobiliarioAdmin(admin.ModelAdmin):
         'Piso',
     )
 
-
-
     
 admin.site.register(Inventario, InventarioAdmin)
-admin.site.register(Marcas)
+admin.site.register(Marcas, MarcasAdmin)
 admin.site.register(Licencia)
 admin.site.register(Hardware)
 admin.site.register(inmobiliario, inmobiliarioAdmin)
