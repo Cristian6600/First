@@ -38,8 +38,6 @@ class Inventario(models.Model):
     def __str__(self):
         return self.Serial
 
-    def __str__(self):
-        return self.Marca
 
 class Articulo(models.Model):
     Articulo = models.CharField(max_length=30)
