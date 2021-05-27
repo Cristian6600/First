@@ -14,8 +14,8 @@ class InventarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'Marca',
         'Estado',
         'Ubicacion',
-        'Observacion',
         'usuario',
+        'Observacion',
     )
     list_filter = (
         'Producto',

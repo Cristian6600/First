@@ -31,9 +31,9 @@ class Inventario(models.Model):
     Modelo = models.CharField(max_length=30)
     Estado = models.BooleanField(default=False)
     Ubicacion = models.ForeignKey(Areas, on_delete=models.CASCADE)
-    Observacion = models.TextField(max_length=50)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     Licencia = models.ManyToManyField(Licencia)
+    Observacion = models.TextField(max_length=50)
     
     
     def __str__(self):
