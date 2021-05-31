@@ -11,9 +11,9 @@ class Estado(models.Model):
       ('RECHA', 'Rechazado'),
         
     ]  
-    Estado = models.CharField(max_length=6, choices=ESTADO_CHOICES)
-    Observaciones = models.TextField(max_length=100)
-    Fecha = models.DateTimeField()
+    Estado = models.CharField(max_length=6, choices=ESTADO_CHOICES, blank=True)
+    Observaciones = models.TextField(max_length=100, blank=True)
+    Fecha = models.DateTimeField(blank=True)
 
 class Clasificacion(models.Model):
     Clasificaciones= models.CharField(max_length=30)

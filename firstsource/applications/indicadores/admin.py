@@ -12,6 +12,13 @@ class indicadorResource(resources.ModelResource):
         fields = ('Tipo', 'Periodo', 'aspectos',)
 
 class indicadorAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+
+    fieldsets = [
+        (None,               {'fields': ['Tipo', 'Periodo', 'Año', 'meta', 'limite', 'aspectos', 'solicitud']}),
+        ('Total', {'fields': ['Porcentaje']}),
+    ]
+
+
     list_display = (
         'Tipo',
         'Periodo',

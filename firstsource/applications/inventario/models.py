@@ -34,7 +34,9 @@ class Inventario(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     Licencia = models.ManyToManyField(Licencia)
     Observacion = models.TextField(max_length=50)
-    
+    ip = models.GenericIPAddressField()
+
+
     
     def __str__(self):
         return self.Serial
@@ -42,6 +44,9 @@ class Inventario(models.Model):
 
 class Articulo(models.Model):
     Articulo = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.Articulo
 
 
 class inmobiliario(models.Model):
