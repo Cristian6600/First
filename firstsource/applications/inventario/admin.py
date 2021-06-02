@@ -8,6 +8,14 @@ class InventarioResource(resources.ModelResource):
         model = Inventario
 
 class InventarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+
+    fieldsets = [
+        (None,               {'fields': ['Serial', 'Producto', 'Marca', 'Modelo',
+         'Estado', 'Ubicacion', 'usuario', 'Observacion', 'ip', 'Mac',]}),
+        ('Perifericos', {'fields': ['Licencia', 'Ram', 'Disco', 'Procesador',
+         'Usb', 'Hdmi', 'Vga', 'Bloq_ex', 'bloq_pa']}),
+    ]
+
     list_display = (
         'Serial',
         'Producto',
@@ -30,7 +38,7 @@ class InventarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 class MarcasAdmin(admin.ModelAdmin):
     list_filter = ('marca',)
 
-class inmobiliarioAdmin(admin.ModelAdmin):
+class inmobiliarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = (
         'serial',
         'Articulo',
@@ -38,6 +46,11 @@ class inmobiliarioAdmin(admin.ModelAdmin):
         'Area',
         'Piso',
     )
+    list_filter = (
+        'serial',
+        
+    )
+    
 
     
 admin.site.register(Inventario, InventarioAdmin)
