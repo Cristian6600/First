@@ -65,9 +65,24 @@ class Articulo(models.Model):
 
 
 class inmobiliario(models.Model):
+
+    Se_CHOICES = [
+      ('Cali', 'Cali'),
+      ('Barranquilla', 'Barranquilla'),
+      ('Bucaramanga', 'Bucaramanga'),
+      ('Bogota', 'Bogota'),
+      ('Cartagena', 'Cartagena'),
+      ('Medelin', 'Medelin'),
+      ('Eje cafetero', 'Eje cafetero'),
+      
+
+      
+        
+    ]  
     serial= models.CharField(max_length=20)
     Articulo= models.ForeignKey(Articulo, on_delete=models.CASCADE)
     Descripcion= models.CharField(max_length=20)
+    Sede = models.CharField(max_length=20, choices=Se_CHOICES)
     Area= models.ForeignKey(Areas, on_delete=models.CASCADE)
     Piso= models.IntegerField()
     Observacion = models.TextField(max_length=30)
