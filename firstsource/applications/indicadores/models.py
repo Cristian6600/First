@@ -11,6 +11,10 @@ from applications.users.models import  User
 class tipo_indicador(models.Model):
     Tipo = models.CharField(max_length=30)
 
+    class Meta:
+        verbose_name = "Tipo de indicador"
+        verbose_name_plural = "Tipo de indicadores"
+
     def __str__(self):
       return self.Tipo
 
@@ -58,6 +62,10 @@ class indicador(models.Model):
     
     def __str__(self):
         return self.solicitud
+
+    class Meta:
+        verbose_name = "Indicador"
+        verbose_name_plural = "Indicadores"
         
     #dependencia = models.OneToOneField(
      #   dependencia,

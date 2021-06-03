@@ -27,6 +27,10 @@ class Clasificacion(models.Model):
 class Proveedor(models.Model):
     Proveedores = models.CharField(max_length=30)
 
+    class Meta:
+        verbose_name = "Proveedor"
+        verbose_name_plural = "Proveedores"
+
     def __str__(self):
         return self.Proveedores
 
@@ -40,6 +44,11 @@ class Sucursal(models.Model):
 class Seco(models.Model):
     Seco = models.CharField(max_length=50, primary_key=True, verbose_name = "Ceco" )
     Nom_seco = models.CharField(max_length=50, blank=True, verbose_name = "Ceco" )
+
+    class Meta:
+        verbose_name = "Ceco"
+        verbose_name_plural = "Cecos"
+
 
     def __str__(self):
         return self.Seco
@@ -70,6 +79,11 @@ class m_solicitud(models.Model):
     iva = models.IntegerField()
     V_total = models.IntegerField()
 
+    class Meta:
+        verbose_name = "Matriz de compra"
+        verbose_name_plural = "Matriz de compras"
+    
+
     def __str__(self):
         return "%s %s %s" % (self.Clasificacion, self.proveedor, self.V_gasto)
 
@@ -77,6 +91,10 @@ class pedido_papeleria(models.Model):
      ti_pape = models.CharField('tipo de papeleria', max_length=30)
      can_pape = models.IntegerField('cantidad papeleria')
      Estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
+
+     class Meta:
+        verbose_name = "Pedido de papeleria"
+        verbose_name_plural = "Pedido de papeleria"
 
 
 

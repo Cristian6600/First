@@ -20,6 +20,10 @@ class Licencia(models.Model):
 class Hardware(models.Model):
     Hardware = models.CharField(max_length=30) 
 
+    class Meta:
+        verbose_name = "Hardware"
+        verbose_name_plural = "Hardware"
+
     def __str__(self):
         return self.Hardware
 
@@ -48,7 +52,9 @@ class Inventario(models.Model):
 
     
 
-    
+    class Meta:
+        verbose_name = "Inventario"
+        verbose_name_plural = "Inventario Tecnologia"
 
 
 
@@ -86,6 +92,10 @@ class inmobiliario(models.Model):
     Area= models.ForeignKey(Areas, on_delete=models.CASCADE)
     Piso= models.IntegerField()
     Observacion = models.TextField(max_length=30)
+
+    class Meta:
+        verbose_name = "Inventario Inmobiliario "
+        verbose_name_plural = "Inventario Inmobiliarios"
     
 
     def __str__(self):
