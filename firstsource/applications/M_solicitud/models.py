@@ -14,7 +14,7 @@ class Estado(models.Model):
     Estado = models.CharField(max_length=6,
     choices=ESTADO_CHOICES,
     blank=True)
-    
+
     Observaciones = models.TextField(max_length=100, blank=True)
     Fecha = models.DateTimeField(blank=True)
 
@@ -38,8 +38,8 @@ class Sucursal(models.Model):
        
 
 class Seco(models.Model):
-    Seco = models.CharField(max_length=50, primary_key=True)
-    Nom_seco = models.CharField(max_length=50, blank=True)
+    Seco = models.CharField(max_length=50, primary_key=True, verbose_name = "Ceco" )
+    Nom_seco = models.CharField(max_length=50, blank=True, verbose_name = "Ceco" )
 
     def __str__(self):
         return self.Seco
@@ -65,8 +65,8 @@ class m_solicitud(models.Model):
       
     Sucursal = models.ManyToManyField(Sucursal)
     Compañia = models.CharField(max_length=20, choices=com_CHOICES, blank= True)
-    Seco = models.ForeignKey(Seco, on_delete=models.CASCADE, null= True )
-    V_gasto = models.IntegerField()
+    Seco = models.ForeignKey(Seco, on_delete=models.CASCADE, null= True, verbose_name = "Ceco", )
+    V_gasto = models.IntegerField() 
     iva = models.IntegerField()
     V_total = models.IntegerField()
 
