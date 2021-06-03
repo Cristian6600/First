@@ -11,7 +11,10 @@ class Estado(models.Model):
       ('RECHA', 'Rechazado'),
         
     ]  
-    Estado = models.CharField(max_length=6, choices=ESTADO_CHOICES, blank=True)
+    Estado = models.CharField(max_length=6,
+    choices=ESTADO_CHOICES,
+    blank=True)
+    
     Observaciones = models.TextField(max_length=100, blank=True)
     Fecha = models.DateTimeField(blank=True)
 
@@ -34,18 +37,35 @@ class Sucursal(models.Model):
         return self.Sucursal
        
 
+class Seco(models.Model):
+    Seco = models.CharField(max_length=50, primary_key=True)
+    Nom_seco = models.CharField(max_length=50, blank=True)
+
+    def __str__(self):
+        return self.Seco
+
 class m_solicitud(models.Model):
+    com_CHOICES = [
+      ('Firstsource', 'Firstsource'),
+      ('TSE', 'TSE'),
+      ('CP', 'CP'),              
+    ]  
 
     f_ingreso= models.DateField()
     f_pago = models.DateField()
     f_contabilidad = models.DateField()
-    #relacionar
-    Clasificacion = models.ForeignKey(Clasificacion, on_delete=models.CASCADE)
-    #Relacionar
+    
+    Clasificacion = models.ForeignKey(
+        Clasificacion,
+        on_delete=models.CASCADE
+    )
+
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
-    #Relacionar
-    #Servicio =  
+    Servicio = models.CharField(max_length=60, blank=True)
+      
     Sucursal = models.ManyToManyField(Sucursal)
+    Compañia = models.CharField(max_length=20, choices=com_CHOICES, blank= True)
+    Seco = models.ForeignKey(Seco, on_delete=models.CASCADE, null= True )
     V_gasto = models.IntegerField()
     iva = models.IntegerField()
     V_total = models.IntegerField()

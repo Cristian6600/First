@@ -10,9 +10,9 @@ class InventarioResource(resources.ModelResource):
 class InventarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
     fieldsets = [
-        (None,               {'fields': ['Serial', 'Producto', 'Marca', 'Modelo',
+        ('Tecnologia', {'fields': ['Serial', 'Producto', 'Marca', 'Modelo',
          'Estado', 'Ubicacion', 'usuario', 'Observacion', 'ip', 'Mac',]}),
-        ('Perifericos', {'fields': ['Licencia', 'Ram', 'Disco', 'Procesador',
+        ('Politicas', {'fields': ['Licencia', 'Ram', 'Disco', 'Procesador',
          'Usb', 'Hdmi', 'Vga', 'Bloq_ex', 'bloq_pa']}),
     ]
 
