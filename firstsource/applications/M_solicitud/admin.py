@@ -15,6 +15,9 @@ class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         ('Gestion', 
         {'fields': ['Clasificacion', 'proveedor', 'Servicio', 'Sucursal','Compañia','Seco']}),
 
+        ('Ingressar Novedad', 
+        {'fields': ['Novedades']}),
+
         ('Gasto', {'fields': ['V_gasto', 'iva', 'V_total']}),
     ]
     

@@ -75,6 +75,7 @@ class m_solicitud(models.Model):
     Sucursal = models.ManyToManyField(Sucursal)
     Compañia = models.CharField(max_length=20, choices=com_CHOICES, blank= True)
     Seco = models.ForeignKey(Seco, on_delete=models.CASCADE, null= True, verbose_name = "Ceco", )
+    Novedades = models.TextField(max_length=150, blank=True)
     V_gasto = models.IntegerField() 
     iva = models.IntegerField()
     V_total = models.IntegerField()

@@ -43,11 +43,13 @@ class inmobiliarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'serial',
         'Articulo',
         'Descripcion',
+        'Sede',
         'Area',
         'Piso',
     )
     list_filter = (
         'serial',
+        'Sede',
         
     )
     

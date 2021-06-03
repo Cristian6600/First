@@ -99,7 +99,7 @@ class inmobiliario(models.Model):
     
 
     def __str__(self):
-        return self.serial + '' + self.Area
+        return self.serial
 
 
 
