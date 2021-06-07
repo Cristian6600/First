@@ -1,24 +1,25 @@
 from django.db import models
 from django.db.models.fields import BooleanField, CharField
 from applications.users.models import User, Areas
+from applications.M_solicitud.models import Sucursal
 
 
 class Marcas(models.Model):
-    marca = models.CharField(max_length=18)
+    marca = models.CharField(max_length=18, primary_key=True)
     
 
     def __str__(self):
         return self.marca 
 
 class Licencia(models.Model):
-    serial = models.CharField(max_length=45)
+    serial = models.CharField(max_length=45, primary_key=True)
     software = models.CharField(max_length=25)
 
     def __str__(self):
         return self.serial
 
 class Hardware(models.Model):
-    Hardware = models.CharField(max_length=30) 
+    Hardware = models.CharField(max_length=30, primary_key=True) 
 
     class Meta:
         verbose_name = "Hardware"
@@ -34,6 +35,7 @@ class Inventario(models.Model):
     Marca = models.ForeignKey(Marcas, on_delete=models.CASCADE)
     Modelo = models.CharField(max_length=30)
     Estado = models.BooleanField(default=False)
+    Sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
     Ubicacion = models.ForeignKey(Areas, on_delete=models.CASCADE)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     Licencia = models.ManyToManyField(Licencia)

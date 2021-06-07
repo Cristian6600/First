@@ -1,9 +1,6 @@
 from django.db import models
 from django.db.models.fields import CharField, TextField
 
-#from applications.M_solicitud.models import Clasificacion_
-
-# Create your models here.
 class Estado(models.Model):
     ESTADO_CHOICES = [
       ('ESPER',  'Espera de aprobacion'),
@@ -19,13 +16,13 @@ class Estado(models.Model):
     Fecha = models.DateTimeField(blank=True)
 
 class Clasificacion(models.Model):
-    Clasificaciones= models.CharField(max_length=30)
+    Clasificaciones= models.CharField(max_length=30, primary_key=True)
 
     def __str__(self):
         return self.Clasificaciones
 
 class Proveedor(models.Model):
-    Proveedores = models.CharField(max_length=30)
+    Proveedores = models.CharField(max_length=30, primary_key=True)
 
     class Meta:
         verbose_name = "Proveedor"
@@ -35,15 +32,15 @@ class Proveedor(models.Model):
         return self.Proveedores
 
 class Sucursal(models.Model):
-    Sucursal = models.CharField(max_length=30)
+    Sucursal = models.CharField(max_length=30, primary_key=True,)
 
     def __str__(self):
         return self.Sucursal
        
 
-class Seco(models.Model):
-    Seco = models.CharField(max_length=50, primary_key=True, verbose_name = "Ceco" )
-    Nom_seco = models.CharField(max_length=50, blank=True, verbose_name = "Ceco" )
+class Cecos(models.Model):
+    Ceco = models.CharField(max_length=50, primary_key=True)
+    Nom_ceco = models.CharField(max_length=50, blank=True)
 
     class Meta:
         verbose_name = "Ceco"
@@ -51,7 +48,7 @@ class Seco(models.Model):
 
 
     def __str__(self):
-        return self.Seco
+        return self.Ceco
 
 class m_solicitud(models.Model):
     com_CHOICES = [
@@ -74,7 +71,7 @@ class m_solicitud(models.Model):
       
     Sucursal = models.ManyToManyField(Sucursal)
     Compañia = models.CharField(max_length=20, choices=com_CHOICES, blank= True)
-    Seco = models.ForeignKey(Seco, on_delete=models.CASCADE, null= True, verbose_name = "Ceco", )
+    Ceco = models.ForeignKey(Cecos, on_delete=models.CASCADE, null= True)
     Novedades = models.TextField(max_length=150, blank=True)
     V_gasto = models.IntegerField() 
     iva = models.IntegerField()

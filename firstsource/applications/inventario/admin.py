@@ -11,7 +11,7 @@ class InventarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
     fieldsets = [
         ('Tecnologia', {'fields': ['Serial', 'Producto', 'Marca', 'Modelo',
-         'Estado', 'Ubicacion', 'usuario', 'Observacion', 'ip', 'Mac',]}),
+         'Estado', 'Sucursal', 'Ubicacion', 'usuario', 'Observacion', 'ip', 'Mac',]}),
         ('Politicas', {'fields': ['Licencia', 'Ram', 'Disco', 'Procesador',
          'Usb', 'Hdmi', 'Vga', 'Bloq_ex', 'bloq_pa']}),
     ]
