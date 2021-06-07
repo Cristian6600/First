@@ -9,7 +9,7 @@ from applications.users.models import  User
 
 
 class tipo_indicador(models.Model):
-    Tipo = models.CharField(max_length=30, primary_key=True)
+    Tipo = models.CharField(max_length=30, primary_key=True, unique=True)
 
     class Meta:
         verbose_name = "Tipo de indicador"

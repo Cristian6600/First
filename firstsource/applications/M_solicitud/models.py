@@ -16,13 +16,13 @@ class Estado(models.Model):
     Fecha = models.DateTimeField(blank=True)
 
 class Clasificacion(models.Model):
-    Clasificaciones= models.CharField(max_length=30, primary_key=True)
+    Clasificaciones= models.CharField(max_length=30, primary_key=True, unique=True)
 
     def __str__(self):
         return self.Clasificaciones
 
 class Proveedor(models.Model):
-    Proveedores = models.CharField(max_length=30, primary_key=True)
+    Proveedores = models.CharField(max_length=30, primary_key=True, unique=True)
 
     class Meta:
         verbose_name = "Proveedor"
@@ -32,14 +32,14 @@ class Proveedor(models.Model):
         return self.Proveedores
 
 class Sucursal(models.Model):
-    Sucursal = models.CharField(max_length=30, primary_key=True,)
+    Sucursal = models.CharField(max_length=30, primary_key=True, unique=True)
 
     def __str__(self):
         return self.Sucursal
        
 
 class Cecos(models.Model):
-    Ceco = models.CharField(max_length=50, primary_key=True)
+    Ceco = models.CharField(max_length=50, primary_key=True, unique=True)
     Nom_ceco = models.CharField(max_length=50, blank=True)
 
     class Meta:

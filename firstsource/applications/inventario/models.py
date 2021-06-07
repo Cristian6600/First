@@ -5,21 +5,21 @@ from applications.M_solicitud.models import Sucursal
 
 
 class Marcas(models.Model):
-    marca = models.CharField(max_length=18, primary_key=True)
+    marca = models.CharField(max_length=18, primary_key=True, unique=True)
     
 
     def __str__(self):
         return self.marca 
 
 class Licencia(models.Model):
-    serial = models.CharField(max_length=45, primary_key=True)
+    serial = models.CharField(max_length=45, primary_key=True, unique=True)
     software = models.CharField(max_length=25)
 
     def __str__(self):
         return self.serial
 
 class Hardware(models.Model):
-    Hardware = models.CharField(max_length=30, primary_key=True) 
+    Hardware = models.CharField(max_length=30, primary_key=True, unique=True) 
 
     class Meta:
         verbose_name = "Hardware"
@@ -66,7 +66,7 @@ class Inventario(models.Model):
 
 
 class Articulo(models.Model):
-    Articulo = models.CharField(max_length=30)
+    Articulo = models.CharField(max_length=30, primary_key=True, unique=True)
 
     def __str__(self):
         return self.Articulo
