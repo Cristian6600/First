@@ -20,13 +20,13 @@ class InventarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'Serial',
         'Producto',
         'Marca',
+        'Sucursal',
         'Estado',
         'Ubicacion',
         'usuario',
         'Observacion',
     )
     list_filter = (
-        'Producto',
         'Marca',
         'Estado',
         'Ubicacion',
@@ -48,13 +48,13 @@ class inmobiliarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'Piso',
     )
     list_filter = (
-        'serial',
         'Sede',
         
     )
-    
 
-    
+
+
+
 admin.site.register(Inventario, InventarioAdmin)
 admin.site.register(Marcas, MarcasAdmin)
 admin.site.register(Licencia)
