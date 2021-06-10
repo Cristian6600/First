@@ -9,6 +9,9 @@ class InventarioResource(resources.ModelResource):
 
 class InventarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
+    model = Inventario
+    list_per_page = 12
+
     fieldsets = [
         ('Tecnologia', {'fields': ['Serial', 'Producto', 'Marca', 'Modelo',
          'Estado', 'Sucursal', 'Ubicacion', 'usuario', 'Observacion', 'ip', 'Mac',]}),
@@ -39,6 +42,10 @@ class MarcasAdmin(admin.ModelAdmin):
     list_filter = ('marca',)
 
 class inmobiliarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+
+    model = Inventario
+    list_per_page = 12
+
     list_display = (
         'serial',
         'Articulo',
@@ -51,9 +58,6 @@ class inmobiliarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'Sede',
         
     )
-
-
-
 
 admin.site.register(Inventario, InventarioAdmin)
 admin.site.register(Marcas, MarcasAdmin)

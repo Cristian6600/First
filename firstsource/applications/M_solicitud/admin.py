@@ -7,6 +7,9 @@ from . models import m_solicitud, Clasificacion, Proveedor, Sucursal, Estado, pe
 
 class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
+    model = m_solicitud
+    list_per_page = 12
+
     fieldsets = [
         ('Fecha de solicitud',  
         {'fields': ['f_ingreso', 'f_pago', 'f_contabilidad']}),
