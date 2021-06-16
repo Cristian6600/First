@@ -79,17 +79,17 @@ class Cargue (models.Model):
     
     Total_devengado = models.DecimalField(max_digits=12, decimal_places=3, blank=True)
     
-    Total_descuentos = models.DecimalField(max_digits=12, decimal_places=3, blank=True)  
+    Total_descuentos = models.DecimalField(max_digits=12, decimal_places=3, null=True, blank=True)  
     
-    # @property
-    # def Descuentos(self):
-    #    return (self.Apor_salud + self.Apor_Pension + self.Fon_solidaridad + self.Retencion_fuen +
-    #    self.O_descuentos + self.Des_prima + self.F_E_Beneficiar + self.A_inactividad + 
-    #    self.D_cred_f_e_beneficiar + self.Poliza_vida + self.Dto_lentes + self.D_Aportes_año )
+    @property
+    def Descuentos(self):
+       return (self.Apor_salud + self.Apor_Pension + self.Fon_solidaridad + self.Retencion_fuen +
+       self.O_descuentos + self.Des_prima + self.F_E_Beneficiar + self.A_inactividad + 
+       self.D_cred_f_e_beneficiar + self.Poliza_vida + self.Dto_lentes + self.D_Aportes_año )
 
-    # def save(self):
-    #     self.Total_descuentos = self.Descuentos
-    #     super (Cargue, self).save()
+    def save(self):
+        self.Total_descuentos = self.Descuentos
+        super (Cargue, self).save()
 
     @property
     def devengado(self):
@@ -107,8 +107,8 @@ class Cargue (models.Model):
         super (Cargue, self).save()
  
 
-    # def __str__(self):
-    #    return self.Nom_completo
+    def __str__(self):
+       return self.Nom_completo
 
 
 
