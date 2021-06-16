@@ -105,12 +105,32 @@ class Cargue (models.Model):
     def save(self):
         self.Total_devengado = self.devengado
         super (Cargue, self).save()
+
+    class Meta:
+        verbose_name = "Nomina "
+        verbose_name_plural = "Nomina"
  
 
     def __str__(self):
        return self.Nom_completo
 
+class Seguridad (models.Model):
+    Fecha = models.CharField(max_length = 10)
+    Identificacion = models.CharField(max_length = 15 )
+    Provision = models.CharField(max_length=20)
+    Cta = models.IntegerField()
+    D_C = models.CharField(max_length=1)
+    Valor = models.DecimalField(max_digits=12, decimal_places=3)
+    Nombre = models.CharField(max_length=60)
+    Centro_Costo = models.CharField(max_length=20)
+    Concepto = models.CharField(max_length=15)
 
+    class Meta:
+        verbose_name = "Seguridad Social"
+        verbose_name_plural = "Seguridad Social"
+
+    def __str__(self):
+       return self.Nombre
 
 
 
