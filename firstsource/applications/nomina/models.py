@@ -120,7 +120,7 @@ class Seguridad (models.Model):
     Provision = models.CharField(max_length=20)
     Cta = models.IntegerField()
     D_C = models.CharField(max_length=1)
-    Valor = models.DecimalField(max_digits=12, decimal_places=3)
+    Valor = models.DecimalField(max_digits=12, decimal_places=0)
     Nombre = models.CharField(max_length=60)
     Centro_Costo = models.CharField(max_length=20)
     Concepto = models.CharField(max_length=15)

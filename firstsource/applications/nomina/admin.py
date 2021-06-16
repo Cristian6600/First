@@ -29,7 +29,8 @@ class CargueAdmin(ImportExportModelAdmin, admin.ModelAdmin):
      list_filter = (
          'Centro_Costo',
      )
-     search_fields = ['Identificacion']
+     search_fields = ('Identificacion', 'CODIGO_CC')
+
 
 class SeguridadResource(resources.ModelResource):
     myfield = Field(column_name='myfield')
@@ -58,6 +59,7 @@ class SeguridadAdmin(ImportExportModelAdmin, admin.ModelAdmin):
          'D_C',
          'Concepto',
      )
+     search_fields = ('Identificacion', 'D_C', 'Centro_Costo')
 
     
 
