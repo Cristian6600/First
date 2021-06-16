@@ -115,7 +115,7 @@ class Cargue (models.Model):
        return self.Nom_completo
 
 class Seguridad (models.Model):
-    Fecha = models.CharField(max_length = 10)
+    Fecha = models.DateField()
     Identificacion = models.CharField(max_length = 15 )
     Provision = models.CharField(max_length=20)
     Cta = models.IntegerField()
