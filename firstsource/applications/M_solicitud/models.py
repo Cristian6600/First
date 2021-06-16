@@ -73,13 +73,21 @@ class m_solicitud(models.Model):
     Compañia = models.CharField(max_length=20, choices=com_CHOICES, blank= True)
     Ceco = models.ForeignKey(Cecos, on_delete=models.CASCADE, null= True)
     Novedades = models.TextField(max_length=150, blank=True)
-    V_gasto = models.IntegerField() 
-    iva = models.IntegerField()
-    V_total = models.IntegerField()
+    V_gasto = models.DecimalField(max_digits=12, decimal_places=3) 
+    iva = models.DecimalField(max_digits=12, decimal_places=2)
+    V_total = models.DecimalField(max_digits=12, decimal_places=3, blank=True)
 
     class Meta:
         verbose_name = "Matriz de compra"
         verbose_name_plural = "Matriz de compras"
+
+    @property
+    def Porcentajes(self):
+      return (self.V_gasto * self.iva)
+
+    def save(self):
+        self.V_total = self.Porcentajes
+        super (m_solicitud, self).save()    
     
 
     def __str__(self):
