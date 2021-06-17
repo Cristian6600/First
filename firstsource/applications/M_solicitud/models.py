@@ -67,15 +67,14 @@ class m_solicitud(models.Model):
     )
 
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
-    Servicio = models.CharField(max_length=60, blank=True)
-      
+    Servicio = models.CharField(max_length=60, blank=True)      
     Sucursal = models.ManyToManyField(Sucursal)
     Compañia = models.CharField(max_length=20, choices=com_CHOICES, blank= True)
     Ceco = models.ForeignKey(Cecos, on_delete=models.CASCADE, null= True)
     Novedades = models.TextField(max_length=150, blank=True)
-    V_gasto = models.DecimalField(max_digits=12, decimal_places=3) 
-    iva = models.DecimalField(max_digits=12, decimal_places=2)
-    V_total = models.DecimalField(max_digits=12, decimal_places=3, blank=True)
+    V_gasto = models.DecimalField(max_digits=12, decimal_places=0) 
+    iva = models.DecimalField(max_digits=12, decimal_places=0)
+    V_total = models.DecimalField(max_digits=12, decimal_places=0, blank=True)
 
     class Meta:
         verbose_name = "Matriz de compra"
@@ -83,7 +82,7 @@ class m_solicitud(models.Model):
 
     @property
     def Porcentajes(self):
-      return (self.V_gasto * self.iva)
+      return (self.V_gasto + self.iva)
 
     def save(self):
         self.V_total = self.Porcentajes
