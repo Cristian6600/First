@@ -32,7 +32,21 @@ class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'V_gasto',
         'iva',
         'V_total',
+        'Compañia',
     )
+    
+    list_filter = (
+        'f_ingreso',
+        'f_pago',
+        'f_contabilidad',
+    )
+
+    search_fields = (
+        'proveedor',
+        'Servicio',
+        'Compañia'
+    )
+
 admin.site.register(m_solicitud, m_solicitudAdmin)
 admin.site.register(Clasificacion)
 admin.site.register(Proveedor)
