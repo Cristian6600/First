@@ -73,7 +73,7 @@ class m_solicitud(models.Model):
     Ceco = models.ForeignKey(Cecos, on_delete=models.CASCADE, null= True)
     Novedades = models.TextField(max_length=150, blank=True)
     V_gasto = models.DecimalField(max_digits=12, decimal_places=0) 
-    iva = models.DecimalField(max_digits=12, decimal_places=0)
+    iva = models.DecimalField(max_digits=12, decimal_places=0, default = 0)
     V_total = models.DecimalField(max_digits=12, decimal_places=0, blank=True)
 
     class Meta:

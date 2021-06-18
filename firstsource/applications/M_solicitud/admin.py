@@ -20,7 +20,7 @@ class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         ('Ingressar Novedad', 
         {'fields': ['Novedades']}),
 
-        ('Gasto Producto con iva = 1,19 producto sin iva = 1,00', {'fields': ['V_gasto', 'iva', 'V_total']}),
+        ('Gasto Producto', {'fields': ['V_gasto', 'iva', 'V_total']}),
     ]
     
     list_display = (
