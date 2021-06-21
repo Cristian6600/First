@@ -1,35 +1,39 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
-from . models import Cargue, Seguridad
+from . models import Nomina, Seguridad
 from import_export.fields import Field
 
-class CargueResource(resources.ModelResource):
+class NominaResource(resources.ModelResource):
     myfield = Field(column_name='myfield')
 
-    class Cargue:
-        model = Cargue
+    class Nomina:
+        model = Nomina
         exclude = ('id')
     
-class CargueAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+class NominaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
-     model = Cargue
+     model = Nomina
      list_per_page = 12
 
      list_display = (
+         'Fecha',
+         'Cta',
+         'D_C',
          'Identificacion',
-         'Nom_completo',
-         'CODIGO_CC',
-         'Centro_Costo',
-         'Sueldo',
-         'Total_devengado',
-         #'Total_descuentos',
+         'Nombre',
+         'Codigo',
+         'Nombre_CC',
+         'Concepto',
+         'Valor',
+
      )
 
      list_filter = (
-         'Centro_Costo',
+         'Fecha',
+         'Concepto',
      )
-     search_fields = ('Identificacion', 'CODIGO_CC')
+     search_fields = ('Fecha', 'Identificacion', 'Nombre')
 
 
 class SeguridadResource(resources.ModelResource):
@@ -63,5 +67,5 @@ class SeguridadAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
     
 
-admin.site.register(Cargue, CargueAdmin)
+admin.site.register(Nomina, NominaAdmin)
 admin.site.register(Seguridad, SeguridadAdmin)
