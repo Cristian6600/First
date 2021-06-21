@@ -3,7 +3,7 @@ admin.site.site_header = "Firstsource"
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 
-from . models import m_solicitud, Clasificacion, Proveedor, Sucursal, Estado, pedido_papeleria, Cecos
+from . models import m_solicitud, Clasificacion, Proveedor, Sucursal, Estado, pedido_papeleria, Cecos, rep_conta, rep_Costos
 
 class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
@@ -46,6 +46,62 @@ class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'Servicio',
         'Compañia'
     )
+class rep_contaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+
+    model = rep_conta
+    list_per_page = 12
+
+    fieldsets = [
+        ('Reporte',  
+        {'fields': ['N_factura', 'Proveedor', 'Fecha']}),
+
+        ('Costos', 
+        {'fields': ['Valor', 'Iva', 'Va_total']}),
+
+        ('Centro de costos', 
+        {'fields': ['Ceco']}),
+
+        ('Observacion', {'fields': ['Observaciones']}),
+    ]
+
+    list_display = (
+        'N_factura',
+        'Proveedor',
+        'Fecha',
+        'Valor',
+        'Iva',
+        'Va_total',
+        'Ceco',
+
+    )
+class rep_CostosAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+
+    model = rep_conta
+    list_per_page = 12
+
+    fieldsets = [
+        ('Reporte',  
+        {'fields': ['N_factura', 'Proveedor', 'Fecha']}),
+
+        ('Costos', 
+        {'fields': ['Valor', 'Iva', 'Va_total']}),
+
+        ('Centro de costos', 
+        {'fields': ['Ceco']}),
+
+        ('Observacion', {'fields': ['Observaciones']}),
+    ]
+
+    list_display = (
+        'N_factura',
+        'Proveedor',
+        'Fecha',
+        'Valor',
+        'Iva',
+        'Va_total',
+        'Ceco',
+
+    )
 
 admin.site.register(m_solicitud, m_solicitudAdmin)
 admin.site.register(Clasificacion)
@@ -54,4 +110,6 @@ admin.site.register(Sucursal)
 admin.site.register(Estado)
 admin.site.register(Cecos)
 admin.site.register(pedido_papeleria)
+admin.site.register(rep_conta, rep_contaAdmin)
+admin.site.register(rep_Costos, rep_CostosAdmin)
 

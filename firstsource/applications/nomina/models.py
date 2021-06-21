@@ -44,6 +44,9 @@ class Seguridad (models.Model):
     def __str__(self):
        return self.Nombre
 
+# class seudoprueba(models.model):
+#     seudo = models.CharField(max_length=20)
+
 
 
 

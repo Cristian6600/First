@@ -46,7 +46,6 @@ class Cecos(models.Model):
         verbose_name = "Ceco"
         verbose_name_plural = "Cecos"
 
-
     def __str__(self):
         return self.Ceco
 
@@ -56,7 +55,6 @@ class m_solicitud(models.Model):
       ('TSE', 'TSE'),
       ('CP', 'CP'),              
     ]  
-
     f_ingreso= models.DateField()
     f_pago = models.DateField()
     f_contabilidad = models.DateField()
@@ -65,7 +63,6 @@ class m_solicitud(models.Model):
         Clasificacion,
         on_delete=models.CASCADE
     )
-
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     Servicio = models.CharField(max_length=60, blank=True)      
     Sucursal = models.ManyToManyField(Sucursal)
@@ -88,7 +85,6 @@ class m_solicitud(models.Model):
         self.V_total = self.Porcentajes
         super (m_solicitud, self).save()    
     
-
     def __str__(self):
         return "%s %s %s" % (self.Clasificacion, self.proveedor, self.V_gasto)
 
@@ -101,5 +97,58 @@ class pedido_papeleria(models.Model):
         verbose_name = "Pedido de papeleria"
         verbose_name_plural = "Pedido de papeleria"
 
+class rep_conta (models.Model):
+    N_factura = models.CharField(max_length=30)
+    Proveedor =  models.CharField(max_length=70)
+    Fecha = models.DateField()
+    Valor = models.DecimalField(max_digits=12, decimal_places=0) 
+    Iva = models.DecimalField(max_digits=12, decimal_places=0) 
+    Va_total = models.DecimalField(max_digits=12, decimal_places=0, null=True, blank=True) 
+    Observaciones = models.TextField(max_length=100)
+    Ceco = models.ForeignKey(Cecos, on_delete=models.CASCADE, null= True)
+
+    class Meta:
+        verbose_name = "Reporte contable"
+        verbose_name_plural = "Reporte contable"
+
+    @property
+    def Porcentajes(self):
+      return (self.Valor + self.Iva)
+
+    def save(self):
+        self.Va_total = self.Porcentajes
+        super (rep_conta, self).save()   
+
+    def __str__(self):
+        return self.N_factura
+
+class rep_Costos (models.Model):
+    N_factura = models.CharField(max_length=30, verbose_name = 'Numero de factura')
+    Proveedor =  models.CharField(max_length=70)
+    Fecha = models.DateField()
+    Valor = models.DecimalField(max_digits=12, decimal_places=0) 
+    Iva = models.DecimalField(max_digits=12, decimal_places=0) 
+    Va_total = models.DecimalField(max_digits=12, decimal_places=0, null=True, blank=True, verbose_name= 'Valor total') 
+    Observaciones = models.TextField(max_length=100)
+    Ceco = models.ForeignKey(Cecos, on_delete=models.CASCADE, null= True)
+
+    class Meta:
+        verbose_name = "Reporte Costos"
+        verbose_name_plural = "Reporte costos"
+
+    @property
+    def Porcentajes(self):
+      return (self.Valor + self.Iva)
+
+    def save(self):
+        self.Va_total = self.Porcentajes
+        super (rep_Costos, self).save()   
+
+    def __str__(self):
+        return self.N_factura
 
 
+
+
+
+    
