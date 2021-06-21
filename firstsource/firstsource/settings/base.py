@@ -99,7 +99,7 @@ AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'es-CO'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 

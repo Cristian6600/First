@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models.aggregates import Max
 from django.db.models.fields import CharField, DateField, IntegerField
+from django.utils import timezone
+
 
 
 # Create your models here.
@@ -15,6 +17,10 @@ class Nomina(models.Model):
     Nombre_CC = models.CharField(max_length=20)
     Concepto =  models.CharField(max_length=40)
     Valor = models.IntegerField()
+
+    class Meta:
+        verbose_name = "Nomina"
+        verbose_name_plural = "Nomina"
     
 
     def __str__(self):
