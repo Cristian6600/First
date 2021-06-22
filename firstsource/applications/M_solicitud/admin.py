@@ -3,7 +3,7 @@ admin.site.site_header = "Firstsource"
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 
-from . models import m_solicitud, Clasificacion, Proveedor, Sucursal, Estado, pedido_papeleria, Cecos, rep_conta, rep_Costos
+from . models import m_solicitud, Clasificacion, Proveedor, Sucursal, Estado, pedido_papeleria, Cecos, rep_conta, rep_Costos, Prov_cont
 
 class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
@@ -72,8 +72,16 @@ class rep_contaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'Iva',
         'Va_total',
         'Ceco',
-
     )
+    search_fields = (
+        'N_factura',
+        'Ceco',
+    )
+
+    list_filter = (
+        'Fecha',
+    )
+
 class rep_CostosAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
     model = rep_conta
@@ -103,6 +111,16 @@ class rep_CostosAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
     )
 
+    search_fields = (
+        'N_factura',
+        'Ceco',
+    )
+
+    list_filter = (
+        'Fecha',
+    )
+
+
 admin.site.register(m_solicitud, m_solicitudAdmin)
 admin.site.register(Clasificacion)
 admin.site.register(Proveedor)
@@ -112,4 +130,5 @@ admin.site.register(Cecos)
 admin.site.register(pedido_papeleria)
 admin.site.register(rep_conta, rep_contaAdmin)
 admin.site.register(rep_Costos, rep_CostosAdmin)
+admin.site.register(Prov_cont)
 

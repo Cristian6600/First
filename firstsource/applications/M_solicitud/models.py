@@ -21,12 +21,19 @@ class Clasificacion(models.Model):
     def __str__(self):
         return self.Clasificaciones
 
+class Prov_cont (models.Model):
+    Proveedor = models.CharField(max_length=30, primary_key=True, unique=True, blank= True)
+
+    class Meta:
+        verbose_name = "Proveedor"
+        verbose_name_plural = "Proveedores Contable"
+
 class Proveedor(models.Model):
     Proveedores = models.CharField(max_length=30, primary_key=True, unique=True)
 
     class Meta:
         verbose_name = "Proveedor"
-        verbose_name_plural = "Proveedores"
+        verbose_name_plural = "Proveedores Compras"
 
     def __str__(self):
         return self.Proveedores
@@ -99,7 +106,7 @@ class pedido_papeleria(models.Model):
 
 class rep_conta (models.Model):
     N_factura = models.CharField(max_length=30)
-    Proveedor =  models.CharField(max_length=70)
+    Proveedor =  models.ForeignKey(Prov_cont, on_delete=models.CASCADE, null= True)
     Fecha = models.DateField()
     Valor = models.DecimalField(max_digits=12, decimal_places=0) 
     Iva = models.DecimalField(max_digits=12, decimal_places=0) 

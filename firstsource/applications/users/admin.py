@@ -11,6 +11,16 @@ class UserAdmin(admin.ModelAdmin):
         'Departamento',
     )
 
+    search_fields = (
+        'username',
+        'nombres',
+        'Departamento',
+    )
+
+    list_filter = (
+        'Departamento',
+    )
+
 
 admin.site.register (User, UserAdmin)
 admin.site.register (Areas)
