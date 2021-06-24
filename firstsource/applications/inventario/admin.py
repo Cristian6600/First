@@ -29,10 +29,11 @@ class InventarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'usuario',
         'Observacion',
     )
-    list_filter = (
-        'Marca',
+    list_filter = ( 
         'Estado',
+        'Producto',
         'Ubicacion',
+        'Sucursal',
     )
     search_fields = ['Serial']
 

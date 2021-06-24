@@ -21,12 +21,6 @@ class Clasificacion(models.Model):
     def __str__(self):
         return self.Clasificaciones
 
-class Prov_cont (models.Model):
-    Proveedor = models.CharField(max_length=30, primary_key=True, unique=True, blank= True)
-
-    class Meta:
-        verbose_name = "Proveedor"
-        verbose_name_plural = "Proveedores Contable"
 
 class Proveedor(models.Model):
     Proveedores = models.CharField(max_length=30, primary_key=True, unique=True)
@@ -106,28 +100,14 @@ class pedido_papeleria(models.Model):
 
 class rep_conta (models.Model):
     N_factura = models.CharField(max_length=30)
-    Proveedor =  models.ForeignKey(Prov_cont, on_delete=models.CASCADE, null= True)
+    Proveedor =  models.CharField(max_length=40)
     Fecha = models.DateField()
     Valor = models.DecimalField(max_digits=12, decimal_places=0) 
     Iva = models.DecimalField(max_digits=12, decimal_places=0) 
     Va_total = models.DecimalField(max_digits=12, decimal_places=0, null=True, blank=True) 
     Observaciones = models.TextField(max_length=100)
     Ceco = models.ForeignKey(Cecos, on_delete=models.CASCADE, null= True)
-
-    class Meta:
-        verbose_name = "Reporte contable"
-        verbose_name_plural = "Reporte contable"
-
-    @property
-    def Porcentajes(self):
-      return (self.Valor + self.Iva)
-
-    def save(self):
-        self.Va_total = self.Porcentajes
-        super (rep_conta, self).save()   
-
-    def __str__(self):
-        return self.N_factura
+# modelo Borrar 
 
 class rep_Costos (models.Model):
     N_factura = models.CharField(max_length=30, verbose_name = 'Numero de factura')
@@ -137,22 +117,12 @@ class rep_Costos (models.Model):
     Iva = models.DecimalField(max_digits=12, decimal_places=0) 
     Va_total = models.DecimalField(max_digits=12, decimal_places=0, null=True, blank=True, verbose_name= 'Valor total') 
     Observaciones = models.TextField(max_length=100)
-    Ceco = models.ForeignKey(Cecos, on_delete=models.CASCADE, null= True)
+    Ceco = models.CharField(max_length=40)
+# Modelo borrar 
 
-    class Meta:
-        verbose_name = "Reporte Costos"
-        verbose_name_plural = "Reporte costos"
+  
 
-    @property
-    def Porcentajes(self):
-      return (self.Valor + self.Iva)
 
-    def save(self):
-        self.Va_total = self.Porcentajes
-        super (rep_Costos, self).save()   
-
-    def __str__(self):
-        return self.N_factura
 
 
 
