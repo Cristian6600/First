@@ -23,6 +23,7 @@ class Clasificacion(models.Model):
 
 
 class Proveedor(models.Model):
+    Nit = models.CharField(max_length=12, unique= True)
     Proveedores = models.CharField(max_length=30, primary_key=True, unique=True)
 
     class Meta:

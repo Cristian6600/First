@@ -46,10 +46,22 @@ class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'Servicio',
         'Compañia'
     )
+class ProveedorAdmin(ImportExportModelAdmin, admin.ModelAdmin):   
+
+    list_display = (
+        'Nit',
+        'Proveedores',
+
+    )
+        
+    search_fields = (
+        'Nit',
+        'Proveedores',
+    )
 
 admin.site.register(m_solicitud, m_solicitudAdmin)
 admin.site.register(Clasificacion)
-admin.site.register(Proveedor)
+admin.site.register(Proveedor, ProveedorAdmin)
 admin.site.register(Sucursal)
 admin.site.register(Estado)
 admin.site.register(Cecos)
