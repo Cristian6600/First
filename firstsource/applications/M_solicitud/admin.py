@@ -59,12 +59,20 @@ class ProveedorAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'Proveedores',
     )
 
+class CecosAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+
+    list_display = (
+        'id',
+        'Nom_ceco',
+    )
+
+
 admin.site.register(m_solicitud, m_solicitudAdmin)
 admin.site.register(Clasificacion)
 admin.site.register(Proveedor, ProveedorAdmin)
 admin.site.register(Sucursal)
 admin.site.register(Estado)
-admin.site.register(Cecos)
+admin.site.register(Cecos, CecosAdmin)
 admin.site.register(pedido_papeleria)
 
 

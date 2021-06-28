@@ -41,7 +41,7 @@ class Sucursal(models.Model):
        
 
 class Cecos(models.Model):
-    Ceco = models.CharField(max_length=50, primary_key=True, unique=True)
+    id = models.CharField(max_length=50, primary_key=True, unique=True, verbose_name= 'Ceco')
     Nom_ceco = models.CharField(max_length=50, blank=True)
 
     class Meta:
@@ -49,7 +49,7 @@ class Cecos(models.Model):
         verbose_name_plural = "Cecos"
 
     def __str__(self):
-        return self.Ceco
+        return self.id
 
 class m_solicitud(models.Model):
     com_CHOICES = [
