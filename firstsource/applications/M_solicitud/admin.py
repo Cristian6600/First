@@ -42,7 +42,7 @@ class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     )
 
     search_fields = (
-        'proveedor',
+        'f_ingreso',
         'Servicio',
         'Compañia'
     )
