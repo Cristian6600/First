@@ -46,6 +46,9 @@ class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'Servicio',
         'Compañia'
     )
+
+    date_hierarchy = 'f_ingreso'
+
 class ProveedorAdmin(ImportExportModelAdmin, admin.ModelAdmin):   
 
     list_display = (
