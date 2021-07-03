@@ -9,6 +9,7 @@ class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
     model = m_solicitud
     list_per_page = 12
+    
 
     fieldsets = [
         ('Fecha de solicitud',  
@@ -17,8 +18,6 @@ class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         ('Gestion', 
         {'fields': ['Clasificacion', 'proveedor', 'Servicio', 'Sucursal','Compañia','Ceco']}),
 
-        ('Ingressar Novedad', 
-        {'fields': ['Novedades']}),
 
         ('Gasto Producto', {'fields': ['V_gasto', 'iva', 'V_total']}),
     ]
