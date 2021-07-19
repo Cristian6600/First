@@ -3,7 +3,7 @@ admin.site.site_header = "Firstsource"
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 
-from . models import m_solicitud, Clasificacion, Proveedor, Sucursal, Estado, pedido_papeleria, Cecos, rep_Costos
+from . models import m_solicitud, Clasificacion, Proveedor, Sucursal, Estado, Cecos, rep_Costos
 
 class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
@@ -75,7 +75,7 @@ admin.site.register(Proveedor, ProveedorAdmin)
 admin.site.register(Sucursal)
 admin.site.register(Estado)
 admin.site.register(Cecos, CecosAdmin)
-admin.site.register(pedido_papeleria)
+
 
 
 

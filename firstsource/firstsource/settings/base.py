@@ -17,6 +17,7 @@ SECRET_KEY = 'u5h4i@k8zl$24!dhx)=22c)ue@5y%$pg)hpr&@#*wt6rcjx0)f'
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,12 +32,14 @@ INSTALLED_APPS = [
     'applications.M_solicitud',
     'applications.nomina',
     
-    
-    
-    
+        
 ]
 
 #LOCAL_APPS = ()
+
+GRAPPELLI_ADMIN_TITLE = 'Bienvenido a Dio'
+
+
 
 #THIRD_PARTY_APPS = ()
 
