@@ -21,5 +21,6 @@ urlpatterns = [
     re_path('', include('applications.users.urls')),
     re_path('', include('applications.home.urls')),
     re_path('', include('applications.inventario.urls')),
+    path('grappelli/', include('grappelli.urls')), # grappelli URLS
     
 ]
