@@ -10,7 +10,7 @@ class Talla(models.Model):
 
 class User(models.Model):
 
-    username = models.CharField(max_length=10, unique=True, verbose_name='Producto')
+    username = models.CharField(max_length=25, unique=True, verbose_name='Producto')
      
     def __str__(self):
         return self.username
