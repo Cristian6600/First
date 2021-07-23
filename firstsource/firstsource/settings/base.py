@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'applications.inventario',
     'applications.M_solicitud',
     'applications.nomina',
+    'applications.dotacion',
     
         
 ]
