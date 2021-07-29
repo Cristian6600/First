@@ -49,7 +49,7 @@ class Cecos(models.Model):
         verbose_name_plural = "Cecos"
 
     def __str__(self):
-        return self.id
+        return self.Nom_ceco
 
 class m_solicitud(models.Model):
     com_CHOICES = [

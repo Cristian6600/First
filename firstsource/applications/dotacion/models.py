@@ -20,10 +20,19 @@ class User(models.Model):
         verbose_name_plural = 'Ropa'
 
 class Dotacion(models.Model):
-    Producto = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name = 'Producto')
+
+    ESTADOS = [
+        ('Entregado', 'ENTREGADO'),
+        ('Disponible ', 'DISPONIBLE '),
+        ('Utilizado ', 'UTILIZADO '),
+
+    ]  
+
+    Producto = models.ForeignKey(User, on_delete=models.CASCADE)
     Talla = models.ForeignKey(Talla, on_delete=models.CASCADE)
     Sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
+    Estado = models.CharField(max_length= 12, choices = ESTADOS)
 
     def __str__(self):
         return str(self.Producto)

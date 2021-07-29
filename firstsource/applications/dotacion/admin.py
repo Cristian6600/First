@@ -78,8 +78,8 @@ class DotacionAdmin(ImportExportModelAdmin):
 
 class DotacionAdmin(ImportExportModelAdmin):
     resource_class = DotacionResource
-    list_display = ['Producto', 'Talla', 'Sucursal', 'cantidad']
-    list_filter = ('Producto', 'Talla', 'Sucursal', 'cantidad' )
+    list_display = ['Producto', 'Talla', 'Sucursal', 'cantidad', 'Estado']
+    list_filter = ('Producto', 'Talla', 'Sucursal', 'cantidad', 'Estado' )
     search_fields = ['cantidad']
 
 class UserResource(resources.ModelResource):

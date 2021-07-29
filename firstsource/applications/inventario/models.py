@@ -82,10 +82,7 @@ class inmobiliario(models.Model):
       ('Cartagena', 'Cartagena'),
       ('Medelin', 'Medelin'),
       ('Eje cafetero', 'Eje cafetero'),
-      
-
-      
-        
+                
     ]  
     serial= models.CharField(max_length=20)
     Articulo= models.ForeignKey(Articulo, on_delete=models.CASCADE)
