@@ -13,13 +13,13 @@ class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
     fieldsets = [
         ('Fecha de solicitud',  
-        {'fields': ['f_ingreso', 'f_pago', 'f_contabilidad']}),
+        {'fields': [('f_ingreso', 'f_pago', 'f_contabilidad')]}),
 
         ('Gestion', 
         {'fields': ['Clasificacion', 'proveedor', 'Servicio', 'Sucursal','Compañia','Ceco']}),
 
 
-        ('Gasto Producto', {'fields': ['V_gasto', 'iva', 'V_total']}),
+        ('Gasto Producto', {'fields': [('V_gasto', 'iva', 'n_factura'), 'V_total']}),
     ]
     
     list_display = (
@@ -32,6 +32,7 @@ class m_solicitudAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'iva',
         'V_total',
         'Compañia',
+        'n_factura'
     )
     
     list_filter = (

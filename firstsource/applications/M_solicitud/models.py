@@ -66,6 +66,7 @@ class m_solicitud(models.Model):
         on_delete=models.CASCADE
     )
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    n_factura = models.CharField(max_length=35, blank= True, null=True, verbose_name= 'Numero de factura')
     Servicio = models.CharField(max_length=60, blank=True)      
     Sucursal = models.ManyToManyField(Sucursal)
     Compañia = models.CharField(max_length=20, choices=com_CHOICES, blank= True)

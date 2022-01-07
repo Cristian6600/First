@@ -1,5 +1,8 @@
 from django.db import models
 from applications.M_solicitud.models import Sucursal
+from applications.users.models import Areas
+
+    
 
 class Talla(models.Model):
 
@@ -31,12 +34,38 @@ class Dotacion(models.Model):
     Producto = models.ForeignKey(User, on_delete=models.CASCADE)
     Talla = models.ForeignKey(Talla, on_delete=models.CASCADE)
     Sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
-    cantidad = models.IntegerField()
+    cantidad = models.PositiveIntegerField()
     Estado = models.CharField(max_length= 12, choices = ESTADOS)
 
     def __str__(self):
-        return str(self.Producto)
+        return str(self.Producto) + '-' + str(self.Talla)
 
     class Meta:
         verbose_name = 'Dotacion'
         verbose_name_plural = 'Dotacion'
+
+class Entrega(models.Model):
+
+    t_dotacion = models.ForeignKey(
+        Dotacion,
+        on_delete=models.CASCADE)
+
+    area = models.ForeignKey(
+        Areas,
+        on_delete=models.CASCADE)
+
+    sucursal = models.ForeignKey(
+        Sucursal,
+        on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.t_dotacion) 
+
+    def save(self, *args, **kwargs):
+        self.t_dotacion.cantidad =  self.t_dotacion.cantidad - 1
+
+        self.t_dotacion.save()
+
+        super(Entrega, self).save(*args, **kwargs)
+
+

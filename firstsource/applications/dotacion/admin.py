@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Dotacion, User, Talla
+from .models import Dotacion, User, Talla, Entrega
 from import_export import resources
 from django.apps import apps
 from import_export.admin import ImportExportModelAdmin
@@ -90,8 +90,10 @@ class UserAdmin(ImportExportModelAdmin):
     resource_class = UserResource
     list_display = ['username']
     
-
+class EntregaAdmin(ImportExportModelAdmin):
+    list_display = ('id', 't_dotacion', 'sucursal')
 
 admin.site.register(Dotacion, DotacionAdmin)
 admin.site.register(User, UserAdmin)
 admin.site.register(Talla)
+admin.site.register(Entrega, EntregaAdmin)
