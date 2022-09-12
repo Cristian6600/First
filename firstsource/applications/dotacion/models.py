@@ -36,6 +36,7 @@ class Dotacion(models.Model):
     Sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField()
     Estado = models.CharField(max_length= 12, choices = ESTADOS)
+    promedio = models.IntegerField()
 
     def __str__(self):
         return str(self.Producto) + '-' + str(self.Talla)
@@ -58,14 +59,48 @@ class Entrega(models.Model):
         Sucursal,
         on_delete=models.CASCADE)
 
+    cantidad = models.IntegerField()
+
     def __str__(self):
         return str(self.t_dotacion) 
 
+    @property
+    def descuento(self):
+        return self.cantidad
+
     def save(self, *args, **kwargs):
-        self.t_dotacion.cantidad =  self.t_dotacion.cantidad - 1
+        self.t_dotacion.cantidad =  self.descuento
 
         self.t_dotacion.save()
 
         super(Entrega, self).save(*args, **kwargs)
 
+class Cliente(models.Model):
+    nombre = models.CharField(max_length=40)
+    nit = models.CharField(max_length=15)
+    telefono = models.IntegerField()
+    correo = models.EmailField()
 
+class Factura(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    numero_factura = models.CharField(max_length=15)
+    fecha = models.DateField(blank=True, null=True)
+    producto = models.ForeignKey(Dotacion, on_delete= models.CASCADE)
+    valor_unidad = models.IntegerField()
+    cantidad = models.IntegerField()
+    total = models.IntegerField(blank=True, null=True)
+
+    @property
+    def promedio_prenda(self):
+        return self.valor_unidad
+
+    @property
+    def valor_total(self):
+        return self.valor_unidad * self.cantidad
+
+    def save(self, *args, **kwargs):
+        self.total =  self.valor_total
+        self.producto.promedio = self.promedio_prenda
+
+        self.producto.save()    
+        super(Factura, self).save(*args, **kwargs)

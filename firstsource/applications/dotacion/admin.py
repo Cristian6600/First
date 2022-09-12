@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Dotacion, User, Talla, Entrega
+from .models import Dotacion, User, Talla, Entrega, Cliente, Factura
 from import_export import resources
 from django.apps import apps
 from import_export.admin import ImportExportModelAdmin
@@ -97,3 +97,5 @@ admin.site.register(Dotacion, DotacionAdmin)
 admin.site.register(User, UserAdmin)
 admin.site.register(Talla)
 admin.site.register(Entrega, EntregaAdmin)
+admin.site.register(Cliente)
+admin.site.register(Factura)
