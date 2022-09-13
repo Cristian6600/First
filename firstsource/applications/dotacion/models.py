@@ -79,7 +79,7 @@ class Entrega(models.Model):
 class Cliente(models.Model):
     nombre = models.CharField(max_length=40)
     nit = models.CharField(max_length=15)
-    telefono = models.IntegerField()
+    telefono = models.CharField(max_length=12)
     correo = models.EmailField()
 
     def __str__(self):
