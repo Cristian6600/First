@@ -1,3 +1,4 @@
+import re
 from django.db import models
 from applications.M_solicitud.models import Sucursal
 from applications.users.models import Areas
@@ -81,6 +82,9 @@ class Cliente(models.Model):
     telefono = models.IntegerField()
     correo = models.EmailField()
 
+    def __str__(self):
+        return self.nombre
+
 class Factura(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     numero_factura = models.CharField(max_length=15)
@@ -90,9 +94,15 @@ class Factura(models.Model):
     cantidad = models.IntegerField()
     total = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return self.numero_factura
     @property
     def promedio_prenda(self):
         return self.valor_unidad
+
+    @property
+    def totals(self):
+        return int(self.cantidad)
 
     @property
     def valor_total(self):
@@ -101,6 +111,7 @@ class Factura(models.Model):
     def save(self, *args, **kwargs):
         self.total =  self.valor_total
         self.producto.promedio = self.promedio_prenda
+        self.producto.cantidad = self.producto.cantidad + self.totals
 
         self.producto.save()    
         super(Factura, self).save(*args, **kwargs)
