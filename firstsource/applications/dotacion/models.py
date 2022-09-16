@@ -3,8 +3,6 @@ from django.db import models
 from applications.M_solicitud.models import Sucursal
 from applications.users.models import Areas
 
-    
-
 class Talla(models.Model):
 
     talla = models.CharField(primary_key= True, max_length = 5)
@@ -25,19 +23,13 @@ class User(models.Model):
 
 class Dotacion(models.Model):
 
-    ESTADOS = [
-        ('Entregado', 'ENTREGADO'),
-        ('Disponible ', 'DISPONIBLE '),
-        ('Utilizado ', 'UTILIZADO '),
-
-    ]  
-
-    Producto = models.ForeignKey(User, on_delete=models.CASCADE)
+    Producto = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='dotacion_ropa')
     Talla = models.ForeignKey(Talla, on_delete=models.CASCADE)
     Sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
-    cantidad = models.PositiveIntegerField()
-    Estado = models.CharField(max_length= 12, choices = ESTADOS)
+    cantidad = models.PositiveIntegerField(verbose_name='stock')
+    stock_usado = models.IntegerField()
     promedio = models.IntegerField()
+    total_dotacion = models.IntegerField(verbose_name="total disponible")
 
     def __str__(self):
         return str(self.Producto) + '-' + str(self.Talla)
@@ -45,6 +37,23 @@ class Dotacion(models.Model):
     class Meta:
         verbose_name = 'Dotacion'
         verbose_name_plural = 'Dotacion'
+
+    @property
+    def total_da(self):
+        return (self.cantidad)
+
+    @property
+    def total_de(self):
+        return (self.stock_usado)
+
+    @property
+    def total_d(self):
+        return int(self.total_da + self.total_de)
+
+    def save(self, *args, **kwargs):
+        self.total_dotacion = self.total_d
+
+        super(Dotacion, self).save(*args, **kwargs)
 
 class Entrega(models.Model):
 
@@ -89,13 +98,11 @@ class Factura(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     numero_factura = models.CharField(max_length=15)
     fecha = models.DateField(blank=True, null=True)
-    producto = models.ForeignKey(Dotacion, on_delete= models.CASCADE)
-    valor_unidad = models.IntegerField()
-    cantidad = models.IntegerField()
-    total = models.IntegerField(blank=True, null=True)
+    total_factura = models.IntegerField(blank=True, null=True, default= 0)
 
     def __str__(self):
         return self.numero_factura
+
     @property
     def promedio_prenda(self):
         return self.valor_unidad
@@ -104,14 +111,49 @@ class Factura(models.Model):
     def totals(self):
         return int(self.cantidad)
 
+class Producto_factura(models.Model):
+    dotacion = models.ForeignKey(Dotacion, on_delete=models.CASCADE)
+    cantidad = models.IntegerField()
+    factura = models.ForeignKey(Factura, on_delete=models.CASCADE, related_name="factura_k")
+    valor_unidad = models.IntegerField()
+    total = models.IntegerField(blank=True, null=True, verbose_name='subtotal')
+
+    @property
+    def cantidadd(self):
+        return int(self.cantidad)
+
+    @property
+    def total_facturad(self):
+        return int(self.total)
+
     @property
     def valor_total(self):
-        return self.valor_unidad * self.cantidad
-
+        return int(self.valor_unidad * self.cantidad)
+    
     def save(self, *args, **kwargs):
-        self.total =  self.valor_total
-        self.producto.promedio = self.promedio_prenda
-        self.producto.cantidad = self.producto.cantidad + self.totals
+        self.total = self.valor_total
+        self.dotacion.cantidad = self.dotacion.cantidad + self.cantidadd
+        self.dotacion.save() 
+        self.factura.total_factura =  self.factura.total_factura + self.total_facturad
+        self.factura.save()       
+        super(Producto_factura, self).save(*args, **kwargs)
 
-        self.producto.save()    
-        super(Factura, self).save(*args, **kwargs)
+    class Meta:
+        verbose_name = 'detalle'
+
+class Devolucion(models.Model):
+    dotacion = models.ForeignKey(Dotacion, on_delete=models.CASCADE)
+    cantidad = models.IntegerField()
+    fecha = models.DateField(auto_now = True)
+
+    @property
+    def total_devolucion(self):
+        return int(self.cantidad)
+        
+    def save(self, *args, **kwargs):
+        self.dotacion.stock_usado = self.dotacion.stock_usado + self.total_devolucion
+        
+        self.dotacion.save() 
+             
+        super(Devolucion, self).save(*args, **kwargs)
+

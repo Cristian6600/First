@@ -1,5 +1,6 @@
+from re import search
 from django.contrib import admin
-from .models import Dotacion, User, Talla, Entrega, Cliente, Factura
+from .models import Dotacion, User, Talla, Entrega, Cliente, Factura, Producto_factura, Producto_factura, Devolucion
 from import_export import resources
 from django.apps import apps
 from import_export.admin import ImportExportModelAdmin
@@ -78,24 +79,68 @@ class DotacionAdmin(ImportExportModelAdmin):
 
 class DotacionAdmin(ImportExportModelAdmin):
     resource_class = DotacionResource
-    list_display = ['Producto', 'Talla', 'Sucursal', 'cantidad', 'Estado']
-    list_filter = ('Producto', 'Talla', 'Sucursal', 'cantidad', 'Estado' )
+    list_display = ['Producto', 'Talla', 'Sucursal', 'cantidad', 'stock_usado', 'total_dotacion']
+    list_filter = ('Producto', 'Talla', 'Sucursal', 'cantidad' )
     search_fields = ['cantidad']
 
 class UserResource(resources.ModelResource):
     class Meta:
         model = User
 
+from django.db.models import Sum
+from django.db.models import Count
 class UserAdmin(ImportExportModelAdmin):
     resource_class = UserResource
-    list_display = ['username']
+    list_display = ['username', 'stock_nuevo', 'stock_usado', 'stock_total']
+    search_fields = ['username']
+
+    def stock_usado(self, obj):
+        return obj.post_count
+    
+    def stock_nuevo(self, obj):
+        return obj.post_counts
+
+    def stock_total(self, obj):
+        return obj.post_total
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        queryset = queryset.annotate(post_counts=Sum("dotacion__cantidad"))
+        queryset = queryset.annotate(post_count=Sum("dotacion__stock_usado"))
+        queryset = queryset.annotate(post_total=Sum("dotacion__total_dotacion"))
+        return queryset
+
+
+    # @admin.display(empty_value='???')
+    # def view_birth_date(self, obj):
+    #     # lista = 
+    #     return obj.dotacion_ropa.count()
     
 class EntregaAdmin(ImportExportModelAdmin):
     list_display = ('id', 't_dotacion', 'sucursal')
+
+class FacturaInline(admin.TabularInline):
+    model = Producto_factura
+    extra = 2
+
+class productoAdmin(admin.ModelAdmin):
+    list_display = ('cliente', 'numero_factura', 'fecha', 'total_factura')
+    search_fields = ('numero_factura', 'cliente__nombre')
+    date_hierarchy = ('fecha')
+    inlines = [
+        FacturaInline,
+    ]
+
+class DevolucionAdmin(admin.ModelAdmin):
+    list_display = ('dotacion', 'cantidad', 'fecha')
+    date_hierarchy = ('fecha')
 
 admin.site.register(Dotacion, DotacionAdmin)
 admin.site.register(User, UserAdmin)
 admin.site.register(Talla)
 admin.site.register(Entrega, EntregaAdmin)
 admin.site.register(Cliente)
-admin.site.register(Factura)
+admin.site.register(Factura, productoAdmin)
+admin.site.register(Producto_factura)
+admin.site.register(Devolucion, DevolucionAdmin)
+
