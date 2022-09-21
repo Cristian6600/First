@@ -1,6 +1,6 @@
 from re import search
 from django.contrib import admin
-from .models import Dotacion, User, Talla, Entrega, Cliente, Factura, Producto_factura, Producto_factura, Devolucion
+from .models import Dotacion, User, Talla, Entrega, Cliente, Factura, Producto_factura, Producto_factura, Devolucion, Tipo
 from import_export import resources
 from django.apps import apps
 from import_export.admin import ImportExportModelAdmin
@@ -79,9 +79,11 @@ class DotacionAdmin(ImportExportModelAdmin):
 
 class DotacionAdmin(ImportExportModelAdmin):
     resource_class = DotacionResource
-    list_display = ['Producto', 'Talla', 'Sucursal', 'cantidad', 'stock_usado', 'total_dotacion']
-    list_filter = ('Producto', 'Talla', 'Sucursal', 'cantidad' )
+    list_display = ['Producto', 'Talla', 'Sucursal', 'cantidad', 'stock_usado', 'total_dotacion', 'valor_promedio']
+    list_filter = ('Producto', 'Talla', 'Sucursal', 'cantidad', 'Producto__categoria')
     search_fields = ['cantidad']
+    exclude = ('valor_promedio',)
+    raw_id_fields = ('Producto',)
 
 class UserResource(resources.ModelResource):
     class Meta:
@@ -89,10 +91,13 @@ class UserResource(resources.ModelResource):
 
 from django.db.models import Sum
 from django.db.models import Count
+from django.db.models import F
+
 class UserAdmin(ImportExportModelAdmin):
     resource_class = UserResource
-    list_display = ['username', 'stock_nuevo', 'stock_usado', 'stock_total']
+    list_display = ['username', 'stock_nuevo', 'stock_usado', 'stock_total', 'promedio_total']
     search_fields = ['username']
+    list_filter = ('categoria',)
 
     def stock_usado(self, obj):
         return obj.post_count
@@ -102,12 +107,17 @@ class UserAdmin(ImportExportModelAdmin):
 
     def stock_total(self, obj):
         return obj.post_total
+    
+    def promedio_total(self, obj):
+        return obj.post_promedio
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         queryset = queryset.annotate(post_counts=Sum("dotacion__cantidad"))
         queryset = queryset.annotate(post_count=Sum("dotacion__stock_usado"))
         queryset = queryset.annotate(post_total=Sum("dotacion__total_dotacion"))
+
+        queryset = queryset.annotate(post_promedio=Sum("dotacion__valor_promedio"))
         return queryset
 
 
@@ -143,4 +153,5 @@ admin.site.register(Cliente)
 admin.site.register(Factura, productoAdmin)
 admin.site.register(Producto_factura)
 admin.site.register(Devolucion, DevolucionAdmin)
+admin.site.register(Tipo)
 

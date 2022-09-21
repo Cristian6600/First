@@ -3,6 +3,12 @@ from django.db import models
 from applications.M_solicitud.models import Sucursal
 from applications.users.models import Areas
 
+class Tipo(models.Model):
+    categoria = models.CharField(max_length=35)
+
+    def __str__(self):
+        return self.categoria
+
 class Talla(models.Model):
 
     talla = models.CharField(primary_key= True, max_length = 5)
@@ -13,13 +19,14 @@ class Talla(models.Model):
 class User(models.Model):
 
     username = models.CharField(max_length=25, unique=True, verbose_name='Producto')
+    categoria = models.ForeignKey(Tipo, on_delete=models.CASCADE, blank=True, null=True)
      
     def __str__(self):
         return self.username
 
     class Meta:
-        verbose_name = 'Ropa'
-        verbose_name_plural = 'Ropa'
+        verbose_name = 'Categoria'
+        verbose_name_plural = 'Categoria'
 
 class Dotacion(models.Model):
 
@@ -30,6 +37,7 @@ class Dotacion(models.Model):
     stock_usado = models.IntegerField()
     promedio = models.IntegerField()
     total_dotacion = models.IntegerField(verbose_name="total disponible")
+    valor_promedio = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return str(self.Producto) + '-' + str(self.Talla)
@@ -50,8 +58,13 @@ class Dotacion(models.Model):
     def total_d(self):
         return int(self.total_da + self.total_de)
 
+    @property
+    def valor_promedios(self):
+      return (self.cantidad * self.promedio)
+
     def save(self, *args, **kwargs):
         self.total_dotacion = self.total_d
+        self.valor_promedio = self.valor_promedios
 
         super(Dotacion, self).save(*args, **kwargs)
 
@@ -125,6 +138,10 @@ class Producto_factura(models.Model):
     @property
     def total_facturad(self):
         return int(self.total)
+    
+    @property
+    def promediof(self):
+        return int(self.valor_unidad)
 
     @property
     def valor_total(self):
@@ -133,6 +150,7 @@ class Producto_factura(models.Model):
     def save(self, *args, **kwargs):
         self.total = self.valor_total
         self.dotacion.cantidad = self.dotacion.cantidad + self.cantidadd
+        self.dotacion.promedio = self.promediof
         self.dotacion.save() 
         self.factura.total_factura =  self.factura.total_factura + self.total_facturad
         self.factura.save()       
