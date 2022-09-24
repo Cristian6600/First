@@ -113,7 +113,7 @@ class Factura(models.Model):
     numero_factura = models.CharField(max_length=15)
     fecha = models.DateField(blank=True, null=True)
     total_factura = models.IntegerField(blank=True, null=True, default= 0)
-    total_unidades = models.IntegerField(blank=True, null=True)
+    total_unidades = models.IntegerField(blank=True, null=True, default=0)
 
     def __str__(self):
         return self.numero_factura
