@@ -34,10 +34,10 @@ class Dotacion(models.Model):
     Talla = models.ForeignKey(Talla, on_delete=models.CASCADE)
     Sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(verbose_name='stock')
-    stock_usado = models.IntegerField()
-    promedio = models.IntegerField()
-    total_dotacion = models.IntegerField(verbose_name="total disponible")
-    valor_promedio = models.IntegerField(blank=True, null=True)
+    stock_usado = models.IntegerField(default=0)
+    promedio = models.IntegerField(default=0)
+    total_dotacion = models.IntegerField(verbose_name="total disponible", default=0)
+    valor_promedio = models.IntegerField(blank=True, null=True, default=0)
 
     def __str__(self):
         return str(self.Producto) + '-' + str(self.Talla)
