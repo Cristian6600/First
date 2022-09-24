@@ -112,6 +112,7 @@ class Factura(models.Model):
     numero_factura = models.CharField(max_length=15)
     fecha = models.DateField(blank=True, null=True)
     total_factura = models.IntegerField(blank=True, null=True, default= 0)
+    total_unidades = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.numero_factura
@@ -153,6 +154,7 @@ class Producto_factura(models.Model):
         self.dotacion.promedio = self.promediof
         self.dotacion.save() 
         self.factura.total_factura =  self.factura.total_factura + self.total_facturad
+        self.factura.total_unidades =  self.factura.total_unidades + self.cantidadd
         self.factura.save()       
         super(Producto_factura, self).save(*args, **kwargs)
 
