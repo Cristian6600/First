@@ -154,7 +154,7 @@ class Producto_factura(models.Model):
         self.dotacion.promedio = self.promediof
         self.dotacion.save() 
         self.factura.total_factura =  self.factura.total_factura + self.total_facturad
-        self.factura.total_unidades =  self.factura.total_unidades + self.cantidadd
+        # self.factura.total_unidades =  self.factura.total_unidades + self.cantidadd
         self.factura.save()       
         super(Producto_factura, self).save(*args, **kwargs)
 
