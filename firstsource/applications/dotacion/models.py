@@ -33,7 +33,7 @@ class Dotacion(models.Model):
     Producto = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='dotacion_ropa')
     Talla = models.ForeignKey(Talla, on_delete=models.CASCADE)
     Sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
-    cantidad = models.PositiveIntegerField(verbose_name='stock')
+    cantidad = models.PositiveIntegerField(verbose_name='stock', default=0)
     stock_usado = models.IntegerField(default=0)
     promedio = models.IntegerField(default=0)
     total_dotacion = models.IntegerField(verbose_name="total disponible", default=0)
