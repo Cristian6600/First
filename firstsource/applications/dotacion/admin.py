@@ -1,3 +1,4 @@
+from datetime import date
 from re import search
 from django.contrib import admin
 from .models import Dotacion, User, Talla, Entrega, Cliente, Factura, Producto_factura, Producto_factura, Devolucion, Tipo
@@ -127,7 +128,9 @@ class UserAdmin(ImportExportModelAdmin):
     #     return obj.dotacion_ropa.count()
     
 class EntregaAdmin(ImportExportModelAdmin):
-    list_display = ('id', 't_dotacion', 'sucursal')
+    list_display = ('id', 't_dotacion', 'sucursal', 'fecha', 'cantidad')
+    date_hierachy = ('fecha')
+    list_filter = ('sucursal', 't_dotacion')
 
 class FacturaInline(admin.TabularInline):
     model = Producto_factura

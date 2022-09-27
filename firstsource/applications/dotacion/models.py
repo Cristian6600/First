@@ -85,6 +85,8 @@ class Entrega(models.Model):
 
     cantidad = models.IntegerField()
 
+    fecha = models.DateField()
+
     def __str__(self):
         return str(self.t_dotacion) 
 
