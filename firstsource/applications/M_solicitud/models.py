@@ -37,8 +37,7 @@ class Sucursal(models.Model):
     Sucursal = models.CharField(max_length=30, primary_key=True, unique=True)
 
     def __str__(self):
-        return self.Sucursal
-       
+        return self.Sucursal    
 
 class Cecos(models.Model):
     id = models.CharField(max_length=50, primary_key=True, unique=True, verbose_name= 'Ceco')

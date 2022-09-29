@@ -1,6 +1,7 @@
 import re
+from tabnanny import verbose
 from django.db import models
-from applications.M_solicitud.models import Sucursal
+from applications.M_solicitud.models import Sucursal, Cecos
 from applications.users.models import Areas
 
 class Tipo(models.Model):
@@ -75,9 +76,7 @@ class Entrega(models.Model):
         Dotacion,
         on_delete=models.CASCADE)
 
-    area = models.ForeignKey(
-        Areas,
-        on_delete=models.CASCADE)
+    ceco = models.ForeignKey(Cecos, on_delete=models.CASCADE, verbose_name='Centro de costos')
 
     sucursal = models.ForeignKey(
         Sucursal,
