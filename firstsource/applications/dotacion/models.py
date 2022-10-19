@@ -94,7 +94,7 @@ class Entrega(models.Model):
         return self.cantidad
 
     def save(self, *args, **kwargs):
-        self.t_dotacion.cantidad =  self.descuento
+        self.t_dotacion.cantidad = self.t_dotacion.cantidad - self.descuento
 
         self.t_dotacion.save()
 
@@ -128,7 +128,7 @@ class Factura(models.Model):
         return int(self.cantidad)
 
 class Producto_factura(models.Model):
-    dotacion = models.ForeignKey(Dotacion, on_delete=models.CASCADE)
+    dotacion = models.ForeignKey(Dotacion, on_delete=models.CASCADE, related_name="dotacion_detalle")
     cantidad = models.IntegerField()
     factura = models.ForeignKey(Factura, on_delete=models.CASCADE, related_name="factura_k")
     valor_unidad = models.IntegerField()
