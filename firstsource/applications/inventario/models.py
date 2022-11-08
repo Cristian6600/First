@@ -91,6 +91,7 @@ class inmobiliario(models.Model):
     Area= models.ForeignKey(Areas, on_delete=models.CASCADE)
     Piso= models.IntegerField()
     Observacion = models.TextField(max_length=30)
+    estado = models.BooleanField(default = True)
 
     class Meta:
         verbose_name = "Inventario Inmobiliario "

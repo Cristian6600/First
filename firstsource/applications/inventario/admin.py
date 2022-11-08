@@ -55,10 +55,11 @@ class inmobiliarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'Sede',
         'Area',
         'Piso',
+        'estado'
     )
     list_filter = (
         'Sede',
-        
+        'estado'
     )
 
 admin.site.register(Inventario, InventarioAdmin)
