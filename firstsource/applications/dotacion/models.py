@@ -35,7 +35,7 @@ class Dotacion(models.Model):
     Talla = models.ForeignKey(Talla, on_delete=models.CASCADE)
     Sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(verbose_name='stock', default=0)
-    stock_usado = models.IntegerField(default=0)
+    stock_usado = models.PositiveIntegerField(default=0)
     promedio = models.IntegerField(default=0)
     total_dotacion = models.IntegerField(verbose_name="total disponible", default=0)
     valor_promedio = models.IntegerField(blank=True, null=True, default=0)
@@ -109,14 +109,14 @@ class Entrega(models.Model):
 
     @property
     def descuento(self):
-        return self.cantidad
+        return int(self.cantidad)
 
     def save(self, *args, **kwargs):
         if self.tipo_dev == "1":
             self.t_dotacion.cantidad = self.t_dotacion.cantidad - self.descuento
-        
+
         elif self.tipo_dev == "2":
-            self.t_dotacion.stock_usado = self.t_dotacion.cantidad - self.descuento
+            self.t_dotacion.stock_usado = self.t_dotacion.stock_usado - self.descuento
 
         print(self.tipo_devolucion + "hola")
         self.t_dotacion.save()
