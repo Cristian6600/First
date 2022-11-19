@@ -82,7 +82,7 @@ class DotacionAdmin(ImportExportModelAdmin):
     resource_class = DotacionResource
     list_display = ['Producto', 'Talla', 'Sucursal', 'cantidad', 'stock_usado', 'total_dotacion', 'valor_promedio']
     list_filter = ('Producto', 'Talla', 'Sucursal', 'cantidad', 'Producto__categoria')
-    search_fields = ['cantidad']
+    search_fields = ['Producto__username']
     exclude = ('valor_promedio',)
     raw_id_fields = ('Producto',)
 
@@ -132,7 +132,7 @@ class EntregaAdmin(ImportExportModelAdmin):
     date_hierachy = ('fecha')
     list_filter = ('sucursal', 't_dotacion')
     raw_id_fields =('t_dotacion', 'ceco')
-    search_fields = ('t_dotacion',)
+    search_fields = ('t_dotacion__Producto__username',)
 
 
 class FacturaInline(admin.TabularInline):
@@ -151,7 +151,7 @@ class DevolucionAdmin(admin.ModelAdmin):
     list_display = ('dotacion', 'cantidad', 'fecha')
     date_hierarchy = ('fecha')
     raw_id_fields =('dotacion',)
-    search_fields = ('dotacion',)
+    search_fields = ('dotacion__Producto__username',)
 
 admin.site.register(Dotacion, DotacionAdmin)
 admin.site.register(User, UserAdmin)

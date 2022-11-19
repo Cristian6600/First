@@ -72,6 +72,14 @@ class Dotacion(models.Model):
 
 class Entrega(models.Model):
 
+    NUEVO = '1'
+    USADO = '2'
+
+    TIPO_DEVOLUCION = [
+        (NUEVO, 'Nuevo'),
+        (USADO, 'Usado'),
+    ]
+
     t_dotacion = models.ForeignKey(
         Dotacion,
         on_delete=models.CASCADE)
@@ -82,20 +90,35 @@ class Entrega(models.Model):
         Sucursal,
         on_delete=models.CASCADE)
 
+    tipo_devolucion = models.CharField(
+        max_length=2,
+        choices=TIPO_DEVOLUCION,
+        
+    )
+
     cantidad = models.IntegerField()
 
     fecha = models.DateField()
 
     def __str__(self):
-        return str(self.t_dotacion) 
+        return str(self.t_dotacion.Producto.username) 
+
+    @property
+    def tipo_dev(self):
+        return self.tipo_devolucion
 
     @property
     def descuento(self):
         return self.cantidad
 
     def save(self, *args, **kwargs):
-        self.t_dotacion.cantidad = self.t_dotacion.cantidad - self.descuento
+        if self.tipo_dev == "1":
+            self.t_dotacion.cantidad = self.t_dotacion.cantidad - self.descuento
+        
+        elif self.tipo_dev == "2":
+            self.t_dotacion.stock_usado = self.t_dotacion.cantidad - self.descuento
 
+        print(self.tipo_devolucion + "hola")
         self.t_dotacion.save()
 
         super(Entrega, self).save(*args, **kwargs)
