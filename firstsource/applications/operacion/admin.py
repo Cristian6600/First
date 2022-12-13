@@ -17,11 +17,11 @@ class AuthDecadeBornListFilter(Facturacion):
 class DetalleResource(resources.ModelResource):
     class Meta:
         model = Detalle
-        fields = ('id__fecha','id__tipo_servicio','id__sucursal', 'id__placa', 'id__tipo_vehiculo', 'id__entregas', 'id', 'factura_vehiculo')
+        fields = ('id__fecha','id__tipo_servicio','id__sucursal', 'id__placa', 'id__tipo_vehiculo', 'id__entregas', 'id__visitas', 'id', 'factura_vehiculo')
         export_order = ('id__fecha','id__tipo_servicio','id__sucursal', 'id__placa', 'id__tipo_vehiculo', 'id__entregas', 'id', 'factura_vehiculo')
 
 class DetalleAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ("fecha","tipo_servicio","sucursal", "placa","tipo_vehiculo","entregas","factura_vehiculo", 'os')
+    list_display = ("fecha","tipo_servicio","sucursal", "placa","tipo_vehiculo","entregas", 'visita', "factura_vehiculo", 'os')
     resource_class = DetalleResource
     list_editable = ('os',)
     date_hierarchy = 'id__fecha'
@@ -50,9 +50,13 @@ class DetalleAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     @admin.display(empty_value='???')
     def entregas(self, obj):
         return obj.id.entregas   
+    
+    @admin.display(empty_value='???')
+    def visita(self, obj):
+        return obj.id.visitas
 
 class FacturaAdmin(admin.ModelAdmin):
-    list_display = ('fecha','tipo_servicio','sucursal', 'placa', 'tipo_vehiculo','entregas')
+    list_display = ('fecha','tipo_servicio','sucursal', 'placa', 'tipo_vehiculo','entregas' ,'visitas')
     
 admin.site.register(Facturacion, FacturaAdmin)
 admin.site.register(Detalle, DetalleAdmin)

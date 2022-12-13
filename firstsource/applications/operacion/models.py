@@ -22,6 +22,7 @@ class Facturacion(models.Model):
     placa = models.CharField(max_length=10)
     tipo_vehiculo= models.CharField(max_length=40, choices=TIPOVEICULO)
     entregas = models.IntegerField()
+    visitas = models.IntegerField()
 
 class Detalle(models.Model):
     
