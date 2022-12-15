@@ -21,7 +21,7 @@ class DetalleResource(resources.ModelResource):
         export_order = ('id__fecha','id__tipo_servicio','id__sucursal', 'id__placa', 'id__tipo_vehiculo', 'id__entregas', 'id', 'factura_vehiculo')
 
 class DetalleAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ("fecha","tipo_servicio","sucursal", "placa","tipo_vehiculo","entregas", 'visita', "factura_vehiculo", 'os')
+    list_display = ("fecha","tipo_servicio","sucursal", "placa","tipo_vehiculo","entregas", 'visita', "factura_vehiculo", 'os', 'efectividad')
     resource_class = DetalleResource
     list_editable = ('os',)
     date_hierarchy = 'id__fecha'
@@ -55,7 +55,7 @@ class DetalleAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     def visita(self, obj):
         return obj.id.visitas
 
-class FacturaAdmin(admin.ModelAdmin):
+class FacturaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('fecha','tipo_servicio','sucursal', 'placa', 'tipo_vehiculo','entregas' ,'visitas')
     
 admin.site.register(Facturacion, FacturaAdmin)
