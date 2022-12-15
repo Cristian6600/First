@@ -25,7 +25,7 @@ class DetalleAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = DetalleResource
     list_editable = ('os',)
     date_hierarchy = 'id__fecha'
-    list_filter = ('id__sucursal',)
+    list_filter = ('id__sucursal', 'id__tipo_vehiculo')
     
     @admin.display(empty_value='???')
     def fecha(self, obj):
