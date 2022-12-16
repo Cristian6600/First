@@ -40,7 +40,7 @@ class Detalle(models.Model):
 
     def save(self, *args, **kwargs):
         if self.id.tipo_vehiculo == 'CARRY':
-            self.valor_auxiliar = 5900000
+            self.valor_auxiliar = 59000
         else:
             self.valor_auxiliar = 0
         # var = self.id.visitas / self.id.entregas * 100 
