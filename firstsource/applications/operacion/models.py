@@ -33,9 +33,16 @@ class Detalle(models.Model):
     factura_vehiculo = models.IntegerField(verbose_name="FACTURA POR VEHICULO", blank=True, null=True)
     os = models.IntegerField(blank=True, null=True)
     efectividad = models.CharField(max_length=25, verbose_name='porcentaje de efectividad')
+    valor_auxiliar = models.IntegerField(blank=True, null=True)
+
+    def valor_auxiliars(self):
+        return '$' + str(self.valor_auxiliar)
 
     def save(self, *args, **kwargs):
-        
+        if self.id.tipo_vehiculo == 'CARRY':
+            self.valor_auxiliar = 5900000
+        else:
+            self.valor_auxiliar = 0
         # var = self.id.visitas / self.id.entregas * 100 
         # self.efectividad = str(var) + "%"
         if self.id.entregas == 0:
