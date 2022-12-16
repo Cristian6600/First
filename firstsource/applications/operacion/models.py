@@ -35,6 +35,9 @@ class Detalle(models.Model):
     efectividad = models.CharField(max_length=25, verbose_name='porcentaje de efectividad')
     valor_auxiliar = models.IntegerField(blank=True, null=True)
 
+    def porcenta(self):
+        return str(self.valor_auxiliar) + " " + str("%")
+
     def valor_auxiliars(self):
         return '$' + str(self.valor_auxiliar)
 
@@ -50,7 +53,8 @@ class Detalle(models.Model):
 
         elif self.id.entregas != 0:
             var = self.id.visitas / self.id.entregas * 100 
-            self.efectividad = str(var) + "%"
+            (var2) = int(var) 
+            self.efectividad = round(int(var2))
 
         if self.id.entregas <= 28 and self.id.tipo_vehiculo == "MOTORIZADO":
             self.factura_vehiculo = 138292
