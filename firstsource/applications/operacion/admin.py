@@ -17,8 +17,8 @@ class AuthDecadeBornListFilter(Facturacion):
 class DetalleResource(resources.ModelResource):
     class Meta:
         model = Detalle
-        fields = ('id__fecha','id__tipo_servicio','id__sucursal', 'id__placa', 'id__tipo_vehiculo', 'id__entregas', 'id__visitas', 'id', 'factura_vehiculo', 'efectividad', 'valor_auxiliar')
-        export_order = ('id__fecha','id__tipo_servicio','id__sucursal', 'id__placa', 'id__tipo_vehiculo', 'id__entregas', 'id', 'factura_vehiculo', 'efectividad', 'valor_auxiliar')
+        fields = ('id__fecha','id__tipo_servicio','id__sucursal', 'id__placa', 'id__tipo_vehiculo', 'id__entregas', 'id__visitas', 'factura_vehiculo', 'efectividad', 'valor_auxiliar')
+        export_order = ('id__fecha','id__tipo_servicio','id__sucursal', 'id__placa', 'id__tipo_vehiculo', 'id__entregas', 'factura_vehiculo', 'efectividad', 'valor_auxiliar')
 
 class DetalleAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ("fecha","tipo_servicio","sucursal", "placa","tipo_vehiculo","entregas", 'visita', "factura_vehiculo", 'os', 'efectividad', 'valor_auxiliars')#
