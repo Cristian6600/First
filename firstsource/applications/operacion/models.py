@@ -21,8 +21,8 @@ class Facturacion(models.Model):
     sucursal = models.CharField(max_length=70, choices=CIUDAD)
     placa = models.CharField(max_length=10)
     tipo_vehiculo= models.CharField(max_length=40, choices=TIPOVEICULO)
-    entregas = models.IntegerField()
-    visitas = models.IntegerField()
+    entregas = models.IntegerField(verbose_name='Unidades cargue')
+    visitas = models.IntegerField(verbose_name='Total entregado')
 
 class Detalle(models.Model):
     
