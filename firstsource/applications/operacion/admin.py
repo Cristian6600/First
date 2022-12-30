@@ -58,6 +58,7 @@ class DetalleAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 class FacturaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('fecha', 'tipo_servicio', 'sucursal', 'placa', 'tipo_vehiculo', 'entregas', 'visitas')
     list_filter = ('sucursal',)
+    date_hierarchy = 'fecha'
     
 admin.site.register(Facturacion, FacturaAdmin)
 admin.site.register(Detalle, DetalleAdmin)
