@@ -39,12 +39,18 @@ class Detalle(models.Model):
         return '$' + str(self.valor_auxiliar)
 
     def save(self, *args, **kwargs):
-        if self.id.tipo_vehiculo == 'CARRY':
+        ####### Da valor solo a CARRY #########
+
+        if self.id.tipo_vehiculo == 'CARRY' and self.id.sucursal == "BOGOTA":
+            self.valor_auxiliar = 0
+
+        elif self.id.tipo_vehiculo == 'CARRY':
             self.valor_auxiliar = 59000
         else:
             self.valor_auxiliar = 0
-        # var = self.id.visitas / self.id.entregas * 100 
-        # self.efectividad = str(var) + "%"
+
+        ######## calcular porcentaje ##########
+
         if self.id.entregas == 0:
             self.efectividad = "0%"
 
@@ -54,7 +60,15 @@ class Detalle(models.Model):
             (b) = round(int(var2))
             self.efectividad = str(b) + "%"
 
-        if self.id.entregas <= 28 and self.id.tipo_vehiculo == "MOTORIZADO":
+        ######## DA VALOR FIFRENTE CUANDO SON MAYORES, MENORES, O EXCEPCIONES ########
+
+        if self.id.sucursal == "BOGOTA" and self.id.tipo_vehiculo == "MOTORIZADO":
+            self.factura_vehiculo = 60000
+
+        elif self.id.sucursal == "BOGOTA" and self.id.tipo_vehiculo == "CARRY":
+            self.factura_vehiculo = 240000
+        ####
+        elif self.id.entregas <= 28 and self.id.tipo_vehiculo == "MOTORIZADO":
             self.factura_vehiculo = 138292
 
         elif self.id.entregas > 28 and self.id.tipo_vehiculo == "MOTORIZADO":

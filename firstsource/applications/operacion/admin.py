@@ -56,7 +56,8 @@ class DetalleAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         return obj.id.visitas
 
 class FacturaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ('fecha','tipo_servicio','sucursal', 'placa', 'tipo_vehiculo','entregas' ,'visitas')
+    list_display = ('fecha', 'tipo_servicio', 'sucursal', 'placa', 'tipo_vehiculo', 'entregas', 'visitas')
+    list_filter = ('sucursal',)
     
 admin.site.register(Facturacion, FacturaAdmin)
 admin.site.register(Detalle, DetalleAdmin)
