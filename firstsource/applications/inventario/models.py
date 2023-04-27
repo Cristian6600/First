@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.fields import BooleanField, CharField
 from applications.users.models import User, Areas
 from applications.M_solicitud.models import Sucursal
-
+from django.conf import settings 
 
 class Marcas(models.Model):
     marca = models.CharField(max_length=18, primary_key=True, unique=True)
@@ -92,6 +92,11 @@ class inmobiliario(models.Model):
     Piso= models.IntegerField()
     Observacion = models.TextField(max_length=30)
     estado = models.BooleanField(default = True)
+    responsable = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE, 
+        null=True, 
+    )
 
     class Meta:
         verbose_name = "Inventario Inmobiliario "
