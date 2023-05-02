@@ -59,7 +59,8 @@ class inmobiliarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     )
     list_filter = (
         'Sede',
-        'estado'
+        'estado',
+        'Articulo__Articulo',
     )
     search_fields = ['serial']
 
