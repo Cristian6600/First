@@ -61,6 +61,7 @@ class inmobiliarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         'Sede',
         'estado'
     )
+    search_fields = ['serial']
 
 admin.site.register(Inventario, InventarioAdmin)
 admin.site.register(Marcas, MarcasAdmin)
