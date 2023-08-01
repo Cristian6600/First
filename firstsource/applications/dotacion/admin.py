@@ -128,11 +128,15 @@ class UserAdmin(ImportExportModelAdmin):
     #     return obj.dotacion_ropa.count()
     
 class EntregaAdmin(ImportExportModelAdmin):
-    list_display = ('id', 't_dotacion', 'sucursal', 'fecha', 'cantidad','ceco')
-    date_hierachy = ('fecha')
+    list_display = ('id', 't_dotacion', 'sucursal', 'fecha', 'cantidad','ceco', 'prueba')
+    date_hierarchy = ('fecha')
     list_filter = ('sucursal', 't_dotacion')
     raw_id_fields =('t_dotacion', 'ceco')
     search_fields = ('t_dotacion__Producto__username',)
+
+    @admin.display(empty_value="???")
+    def prueba(self, obj):
+        return obj.cantidad * obj.t_dotacion.promedio
 
 
 class FacturaInline(admin.TabularInline):
