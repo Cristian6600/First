@@ -8,6 +8,10 @@ from import_export.admin import ImportExportModelAdmin
 from django.db import models
 import tablib
 import collections
+from admin_totals.admin import ModelAdminTotals
+from django.db.models import Sum, Avg
+from django.db.models.functions import Coalesce
+
 
 class DotacionResource(resources.ModelResource):
     def __init__(self):
@@ -126,17 +130,44 @@ class UserAdmin(ImportExportModelAdmin):
     # def view_birth_date(self, obj):
     #     # lista = 
     #     return obj.dotacion_ropa.count()
+from django.contrib.admin.views.main import ChangeList
+
+
+class MyChangeList(ChangeList):
+    admin.display(empty_value="???")
+    def prueba(self, obj):
+        return obj.cantidad * obj.t_dotacion.promedio
+
+    def get_results(self, *args, **kwargs):
+        super(MyChangeList, self).get_results(*args, **kwargs)
+        q = self.result_list.aggregate(tomato_sum=Sum('t_dotacion__promedio'))
+        self.tomato_count = q['tomato_sum']
+ 
+class EntregaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+
+    def get_changelist(self, request):
+        return MyChangeList
+
     
-class EntregaAdmin(ImportExportModelAdmin):
-    list_display = ('id', 't_dotacion', 'sucursal', 'fecha', 'cantidad','ceco', 'prueba')
+    change_list_template = 'templates/admin/change_list.html' 
+
+    list_display = ('id', 't_dotacion', 'sucursal', 'fecha', 'cantidad','ceco', 'total')
     date_hierarchy = ('fecha')
     list_filter = ('sucursal', 't_dotacion')
     raw_id_fields =('t_dotacion', 'ceco')
     search_fields = ('t_dotacion__Producto__username',)
+    list_totals = [('cantidad', Sum), ('col_c', Avg)]
+
 
     @admin.display(empty_value="???")
-    def prueba(self, obj):
+    def total(self, obj):
         return obj.cantidad * obj.t_dotacion.promedio
+    
+    class Meta:
+        model = Entrega
+
+    
+    
 
 
 class FacturaInline(admin.TabularInline):
