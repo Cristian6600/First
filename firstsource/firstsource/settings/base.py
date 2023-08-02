@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'admin_totals',
+    #'admin_totals',
     #local apps
     'applications.users',
     'applications.indicadores',
