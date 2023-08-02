@@ -149,7 +149,7 @@ class EntregaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         return MyChangeList
 
     
-    change_list_template = 'templates/admin/change_list.html' 
+    #change_list_template = 'templates/admin/change_list.html' 
 
     list_display = ('id', 't_dotacion', 'sucursal', 'fecha', 'cantidad','ceco', 'total')
     date_hierarchy = ('fecha')
