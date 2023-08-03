@@ -100,8 +100,14 @@ class Entrega(models.Model):
 
     fecha = models.DateField()
 
+    Valor = models.IntegerField(null = True, blank=True)
+
     def __str__(self):
         return str(self.t_dotacion.Producto.username) 
+    
+    @property
+    def cant(self):
+        return self.cantidad
 
     @property
     def tipo_dev(self):
@@ -112,11 +118,13 @@ class Entrega(models.Model):
         return int(self.cantidad)
 
     def save(self, *args, **kwargs):
-        if self.tipo_dev == "1":
-            self.t_dotacion.cantidad = self.t_dotacion.cantidad - self.descuento
+        self.Valor = self.t_dotacion.promedio * self.cant
 
-        elif self.tipo_dev == "2":
-            self.t_dotacion.stock_usado = self.t_dotacion.stock_usado - self.descuento
+        # if self.tipo_dev == "1":
+        #     self.t_dotacion.cantidad = self.t_dotacion.cantidad - self.descuento
+
+        # elif self.tipo_dev == "2":
+        #     self.t_dotacion.stock_usado = self.t_dotacion.stock_usado - self.descuento
 
         print(self.tipo_devolucion + "hola")
         self.t_dotacion.save()
