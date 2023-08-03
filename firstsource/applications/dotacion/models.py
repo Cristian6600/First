@@ -126,8 +126,8 @@ class Entrega(models.Model):
         # elif self.tipo_dev == "2":
         #     self.t_dotacion.stock_usado = self.t_dotacion.stock_usado - self.descuento
 
-        print(self.tipo_devolucion + "hola")
-        self.t_dotacion.save()
+        # print(self.tipo_devolucion + "hola")
+        # self.t_dotacion.save()
 
         super(Entrega, self).save(*args, **kwargs)
 
