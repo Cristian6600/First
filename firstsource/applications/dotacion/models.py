@@ -120,14 +120,14 @@ class Entrega(models.Model):
     def save(self, *args, **kwargs):
         self.Valor = self.t_dotacion.promedio * self.cant
 
-        # if self.tipo_dev == "1":
-        #     self.t_dotacion.cantidad = self.t_dotacion.cantidad - self.descuento
+        if self.tipo_dev == "1":
+            self.t_dotacion.cantidad = self.t_dotacion.cantidad - self.descuento
 
-        # elif self.tipo_dev == "2":
-        #     self.t_dotacion.stock_usado = self.t_dotacion.stock_usado - self.descuento
+        elif self.tipo_dev == "2":
+            self.t_dotacion.stock_usado = self.t_dotacion.stock_usado - self.descuento
 
-        # print(self.tipo_devolucion + "hola")
-        # self.t_dotacion.save()
+        print(self.tipo_devolucion + "hola")
+        self.t_dotacion.save()
 
         super(Entrega, self).save(*args, **kwargs)
 
