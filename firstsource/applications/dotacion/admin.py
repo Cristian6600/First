@@ -137,11 +137,12 @@ class MyChangeList(ChangeList):
     admin.display(empty_value="???")
     def prueba(self, obj):
         return obj.cantidad * obj.t_dotacion.promedio
-
+ 
     def get_results(self, *args, **kwargs):
         super(MyChangeList, self).get_results(*args, **kwargs)
-        q = self.result_list.aggregate(tomato_sum=Sum('t_dotacion__promedio'))
-        self.tomato_count = q['tomato_sum']
+        q = Entrega.objects.aggregate(tomato_sum=Avg('t_dotacion__promedio'))
+        t = self.result_list.aggregate(tomato_sums=Sum('cantidad'))
+        self.tomato_count = q['tomato_sum'] * t['tomato_sums'] 
  
 class EntregaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
@@ -156,7 +157,7 @@ class EntregaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_filter = ('sucursal', 't_dotacion')
     raw_id_fields =('t_dotacion', 'ceco')
     search_fields = ('t_dotacion__Producto__username',)
-    list_totals = [('cantidad', Sum), ('col_c', Avg)]
+    #list_totals = [('cantidad', Sum), ('total', Avg)]
 
 
     @admin.display(empty_value="???")
