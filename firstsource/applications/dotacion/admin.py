@@ -140,8 +140,8 @@ class MyChangeList(ChangeList):
  
     def get_results(self, *args, **kwargs):
         super(MyChangeList, self).get_results(*args, **kwargs)
-        q = Entrega.objects.aggregate(tomato_sum=Avg('t_dotacion__promedio'))
-        t = self.result_list.aggregate(tomato_sums=Sum('cantidad'))
+        q = Entrega.objects.aggregate(tomato_sum=Sum('t_dotacion__promedio'))
+        t = self.result_list.aggregate(tomato_sums=Avg('cantidad'))
         self.tomato_count = q['tomato_sum'] * t['tomato_sums'] 
  
 class EntregaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
