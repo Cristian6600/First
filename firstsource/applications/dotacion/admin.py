@@ -3,6 +3,7 @@ from re import search
 from django.contrib import admin
 from .models import Dotacion, User, Talla, Entrega, Cliente, Factura, Producto_factura, Producto_factura, Devolucion, Tipo
 from import_export import resources
+from import_export.fields import Field
 from django.apps import apps
 from import_export.admin import ImportExportModelAdmin
 from django.db import models
@@ -12,6 +13,11 @@ from admin_totals.admin import ModelAdminTotals
 from django.db.models import Sum, Avg
 from django.db.models.functions import Coalesce
 
+class EntregaResource(resources.ModelResource):
+    t_dotacion__Producto__username = Field(attribute='t_dotacion__Producto__username', column_name='Tipo dotacion')
+    class Meta:
+        model = Entrega
+        fields = ('t_dotacion__Producto__username', 'ceco', 'sucursal', 'tipo_devolucion', 'cantidad' 'fecha', 'Valor')
 
 class DotacionResource(resources.ModelResource):
     def __init__(self):
@@ -157,6 +163,7 @@ class EntregaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_filter = ('sucursal', 't_dotacion')
     raw_id_fields =('t_dotacion', 'ceco')
     search_fields = ('t_dotacion__Producto__username',)
+    resource_class = EntregaResource
     #list_totals = [('cantidad', Sum), ('total', Avg)]
 
 
