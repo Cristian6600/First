@@ -17,7 +17,7 @@ class EntregaResource(resources.ModelResource):
     t_dotacion__Producto__username = Field(attribute='t_dotacion__Producto__username', column_name='Tipo dotacion')
     class Meta:
         model = Entrega
-        fields = ('t_dotacion__Producto__username', 'ceco', 'sucursal', 'tipo_devolucion', 'cantidad' 'fecha', 'Valor')
+        fields = ('t_dotacion__Producto__username', 'ceco', 'sucursal', 'tipo_devolucion', 'cantidad', 'fecha', 'Valor')
 
 class DotacionResource(resources.ModelResource):
     def __init__(self):
